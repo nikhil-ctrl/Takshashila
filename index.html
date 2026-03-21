@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Takshashila — SSC CGL Notes</title>
+<title>Takshashila — Government Exam Notes</title>
 <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet"/>
 <style>
 /* ── VARIABLES ── */
@@ -91,9 +91,17 @@ body {
 .s-nav::-webkit-scrollbar { width: 0; }
 
 .s-label {
-  font-size: 0.6rem; font-weight: 600; letter-spacing: 0.12em;
-  text-transform: uppercase; color: var(--text3);
-  padding: 10px 20px 3px;
+  font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--accent);
+  padding: 14px 20px 4px;
+  border-top: 1px solid var(--border);
+  margin-top: 4px;
+}
+.s-label:first-child { border-top: none; margin-top: 0; }
+.s-subject-sub {
+  font-size: 0.74rem !important;
+  padding-top: 4px !important;
+  padding-bottom: 4px !important;
 }
 
 .s-subject {
@@ -370,7 +378,7 @@ body {
 <aside id="sidebar">
   <div class="s-logo">
     <h1>Takshashila</h1>
-    <p>SSC CGL · Personal Notes</p>
+    <p>Government Exam Notes</p>
   </div>
 
   <div class="s-search">
@@ -378,42 +386,47 @@ body {
   </div>
 
   <nav class="s-nav">
-    <div class="s-label">History</div>
 
+    <!-- ── GS / GA ── -->
+    <div class="s-label">GS / GA</div>
+
+    <!-- History -->
     <div class="s-subject open" onclick="tog(this)">
-      <span class="dot" style="background:#c96060"></span>Ancient India<span class="arr">▶</span>
+      <span class="dot" style="background:#c96060"></span>History<span class="arr">▶</span>
     </div>
     <div class="s-topics">
-      <div class="s-topic" onclick="show('ancient-india',this)">Ancient India<span class="chk" id="chk-ancient-india"></span></div>
+
+      <!-- Ancient India -->
+      <div class="s-subject s-subject-sub" onclick="tog(this)" style="padding-left:32px">
+        <span style="font-size:0.72rem;color:var(--text2)">Ancient India</span><span class="arr">▶</span>
+      </div>
+      <div class="s-topics">
+        <div class="s-topic" style="padding-left:46px" onclick="show('ancient-india',this)">Ancient India<span class="chk" id="chk-ancient-india"></span></div>
+      </div>
+
+      <!-- Medieval India -->
+      <div class="s-subject s-subject-sub open" onclick="tog(this)" style="padding-left:32px">
+        <span style="font-size:0.72rem;color:var(--text2)">Medieval India</span><span class="arr">▶</span>
+      </div>
+      <div class="s-topics">
+        <div class="s-topic" style="padding-left:46px" onclick="show('arab-turkish',this)">Arab & Turkish Invasions<span class="chk" id="chk-arab-turkish"></span></div>
+        <div class="s-topic" style="padding-left:46px" onclick="show('delhi-sultanate',this)">Delhi Sultanate<span class="chk" id="chk-delhi-sultanate"></span></div>
+        <div class="s-topic" style="padding-left:46px" onclick="show('mughal',this)">Mughal Empire<span class="chk" id="chk-mughal"></span></div>
+        <div class="s-topic" style="padding-left:46px" onclick="show('bhakti-sufi',this)">Bhakti & Sufi Movement<span class="chk" id="chk-bhakti-sufi"></span></div>
+        <div class="s-topic" style="padding-left:46px" onclick="show('vijayanagar',this)">Vijayanagar & Bahamani<span class="chk" id="chk-vijayanagar"></span></div>
+      </div>
+
+      <!-- Modern India -->
+      <div class="s-subject s-subject-sub" onclick="tog(this)" style="padding-left:32px">
+        <span style="font-size:0.72rem;color:var(--text2)">Modern India</span><span class="arr">▶</span>
+      </div>
+      <div class="s-topics">
+        <div class="s-topic" style="padding-left:46px" onclick="show('modern-india',this)">Modern India<span class="chk" id="chk-modern-india"></span></div>
+      </div>
+
     </div>
 
-    <div class="s-subject open" onclick="tog(this)">
-      <span class="dot" style="background:#c9973a"></span>Medieval India<span class="arr">▶</span>
-    </div>
-    <div class="s-topics">
-      <div class="s-topic" onclick="show('arab-turkish',this)">Arab & Turkish Invasions<span class="chk" id="chk-arab-turkish"></span></div>
-      <div class="s-topic" onclick="show('delhi-sultanate',this)">Delhi Sultanate<span class="chk" id="chk-delhi-sultanate"></span></div>
-      <div class="s-topic" onclick="show('mughal',this)">Mughal Empire<span class="chk" id="chk-mughal"></span></div>
-      <div class="s-topic" onclick="show('bhakti-sufi',this)">Bhakti & Sufi Movement<span class="chk" id="chk-bhakti-sufi"></span></div>
-    </div>
-
-    <div class="s-subject" onclick="tog(this)">
-      <span class="dot" style="background:#4e9a72"></span>Modern India<span class="arr">▶</span>
-    </div>
-    <div class="s-topics">
-      <div class="s-topic" onclick="show('modern-india',this)">Modern India<span class="chk" id="chk-modern-india"></span></div>
-    </div>
-
-    <div class="s-label">Other Subjects</div>
-
-    <div class="s-subject" onclick="tog(this)">
-      <span class="dot" style="background:#4e9a72"></span>Geography<span class="arr">▶</span>
-    </div>
-    <div class="s-topics">
-      <div class="s-topic" onclick="show('physical-geo',this)">Physical Geography<span class="chk" id="chk-physical-geo"></span></div>
-      <div class="s-topic" onclick="show('indian-geo',this)">Indian Geography<span class="chk" id="chk-indian-geo"></span></div>
-    </div>
-
+    <!-- Polity -->
     <div class="s-subject" onclick="tog(this)">
       <span class="dot" style="background:#4e7fc9"></span>Polity<span class="arr">▶</span>
     </div>
@@ -422,13 +435,25 @@ body {
       <div class="s-topic" onclick="show('parliament',this)">Parliament<span class="chk" id="chk-parliament"></span></div>
     </div>
 
+    <!-- Geography -->
     <div class="s-subject" onclick="tog(this)">
-      <span class="dot" style="background:#c9973a"></span>Economy<span class="arr">▶</span>
+      <span class="dot" style="background:#4e9a72"></span>Geography<span class="arr">▶</span>
+    </div>
+    <div class="s-topics">
+      <div class="s-topic" onclick="show('physical-geo',this)">Physical Geography<span class="chk" id="chk-physical-geo"></span></div>
+      <div class="s-topic" onclick="show('indian-geo',this)">Indian Geography<span class="chk" id="chk-indian-geo"></span></div>
+    </div>
+
+    <!-- Economics -->
+    <div class="s-subject" onclick="tog(this)">
+      <span class="dot" style="background:#c9973a"></span>Economics<span class="arr">▶</span>
     </div>
     <div class="s-topics">
       <div class="s-topic" onclick="show('economy',this)">Basics of Economy<span class="chk" id="chk-economy"></span></div>
+      <div class="s-topic" onclick="show('budget',this)">Budget & Planning<span class="chk" id="chk-budget"></span></div>
     </div>
 
+    <!-- Science -->
     <div class="s-subject" onclick="tog(this)">
       <span class="dot" style="background:#9a4ec9"></span>Science<span class="arr">▶</span>
     </div>
@@ -438,12 +463,71 @@ body {
       <div class="s-topic" onclick="show('biology',this)">Biology<span class="chk" id="chk-biology"></span></div>
     </div>
 
+    <!-- Static GK -->
+    <div class="s-subject" onclick="tog(this)">
+      <span class="dot" style="background:#c96060"></span>Static GK<span class="arr">▶</span>
+    </div>
+    <div class="s-topics">
+      <div class="s-topic" onclick="show('static-gk',this)">Static GK<span class="chk" id="chk-static-gk"></span></div>
+    </div>
+
+    <!-- Current Affairs -->
     <div class="s-subject" onclick="tog(this)">
       <span class="dot" style="background:#7a7a7a"></span>Current Affairs<span class="arr">▶</span>
     </div>
     <div class="s-topics">
       <div class="s-topic" onclick="show('current',this)">Monthly Digest<span class="chk" id="chk-current"></span></div>
     </div>
+
+    <!-- ── MATHS ── -->
+    <div class="s-label">Maths</div>
+
+    <div class="s-subject" onclick="tog(this)">
+      <span class="dot" style="background:#4e9a72"></span>Arithmetic<span class="arr">▶</span>
+    </div>
+    <div class="s-topics">
+      <div class="s-topic" onclick="show('number-system',this)">Number System<span class="chk" id="chk-number-system"></span></div>
+      <div class="s-topic" onclick="show('percentage',this)">Percentage<span class="chk" id="chk-percentage"></span></div>
+      <div class="s-topic" onclick="show('profit-loss',this)">Profit & Loss<span class="chk" id="chk-profit-loss"></span></div>
+    </div>
+
+    <div class="s-subject" onclick="tog(this)">
+      <span class="dot" style="background:#4e7fc9"></span>Geometry & Algebra<span class="arr">▶</span>
+    </div>
+    <div class="s-topics">
+      <div class="s-topic" onclick="show('geometry',this)">Geometry<span class="chk" id="chk-geometry"></span></div>
+      <div class="s-topic" onclick="show('algebra',this)">Algebra<span class="chk" id="chk-algebra"></span></div>
+    </div>
+
+    <!-- ── ENGLISH ── -->
+    <div class="s-label">English</div>
+
+    <div class="s-subject" onclick="tog(this)">
+      <span class="dot" style="background:#c9973a"></span>Grammar<span class="arr">▶</span>
+    </div>
+    <div class="s-topics">
+      <div class="s-topic" onclick="show('grammar',this)">Grammar<span class="chk" id="chk-grammar"></span></div>
+      <div class="s-topic" onclick="show('vocab',this)">Vocabulary<span class="chk" id="chk-vocab"></span></div>
+    </div>
+
+    <!-- ── REASONING ── -->
+    <div class="s-label">Reasoning</div>
+
+    <div class="s-subject" onclick="tog(this)">
+      <span class="dot" style="background:#9a4ec9"></span>Verbal Reasoning<span class="arr">▶</span>
+    </div>
+    <div class="s-topics">
+      <div class="s-topic" onclick="show('analogy',this)">Analogy<span class="chk" id="chk-analogy"></span></div>
+      <div class="s-topic" onclick="show('series',this)">Series<span class="chk" id="chk-series"></span></div>
+    </div>
+
+    <div class="s-subject" onclick="tog(this)">
+      <span class="dot" style="background:#4e9a72"></span>Non-Verbal Reasoning<span class="arr">▶</span>
+    </div>
+    <div class="s-topics">
+      <div class="s-topic" onclick="show('figures',this)">Figures & Patterns<span class="chk" id="chk-figures"></span></div>
+    </div>
+
   </nav>
 
   <div class="s-bottom">
@@ -451,7 +535,7 @@ body {
     <div class="prog-bar"><div class="prog-fill" id="bar" style="width:0%"></div></div>
     <div class="prog-nums">
       <span class="pn"><b id="st-done">0</b> done</span>
-      <span class="pn"><b id="st-left">12</b> left</span>
+      <span class="pn"><b id="st-left">28</b> left</span>
     </div>
   </div>
 </aside>
@@ -468,9 +552,9 @@ body {
 
   <!-- HOME -->
   <div id="home">
-    <div class="home-eyebrow">SSC CGL 2025–26</div>
+    <div class="home-eyebrow">SSC CGL · UPSC · RRB · All Government Exams</div>
     <h1 class="home-h1">Welcome to <em>Takshashila</em></h1>
-    <p class="home-desc">Named after the world's first university — your personal SSC CGL GS/GA notes portal. Notes here are built strictly from your study sources: YouTube lectures, PDFs, and book images. Nothing extra is added.</p>
+    <p class="home-desc">Named after the world's first university — a notes portal for all government exams. Notes are built strictly from your study sources: YouTube lectures, PDFs, and book images. Nothing extra is added.</p>
 
     <div class="home-section-h" style="margin-bottom:10px">How it works</div>
     <div class="steps" style="margin-bottom:36px">
@@ -479,14 +563,12 @@ body {
       <div class="step"><div class="step-n">3</div><div><h4>Portal grows</h4><p>Topic by topic, your complete revision portal builds up over time.</p></div></div>
     </div>
 
-    <div class="home-section-h">All Subjects</div>
+    <div class="home-section-h">Subjects</div>
     <div class="subj-grid">
-      <div class="subj-card" onclick="show('ancient-india',null)"><span class="icon">🏛️</span><div class="info"><h4>History</h4><p>Ancient · Medieval · Modern</p></div><span class="arr">›</span></div>
-      <div class="subj-card" onclick="show('physical-geo',null)"><span class="icon">🌍</span><div class="info"><h4>Geography</h4><p>Physical & Indian Geography</p></div><span class="arr">›</span></div>
-      <div class="subj-card" onclick="show('constitution',null)"><span class="icon">⚖️</span><div class="info"><h4>Polity</h4><p>Constitution & Parliament</p></div><span class="arr">›</span></div>
-      <div class="subj-card" onclick="show('economy',null)"><span class="icon">💰</span><div class="info"><h4>Economy</h4><p>Basics, Budget, Planning</p></div><span class="arr">›</span></div>
-      <div class="subj-card" onclick="show('physics',null)"><span class="icon">⚗️</span><div class="info"><h4>Science</h4><p>Physics · Chemistry · Biology</p></div><span class="arr">›</span></div>
-      <div class="subj-card" onclick="show('current',null)"><span class="icon">📰</span><div class="info"><h4>Current Affairs</h4><p>Monthly digest</p></div><span class="arr">›</span></div>
+      <div class="subj-card" onclick="show('arab-turkish',null)"><span class="icon">🏛️</span><div class="info"><h4>GS / GA</h4><p>History · Polity · Geography · Economics · Science · Static GK · Current Affairs</p></div><span class="arr">›</span></div>
+      <div class="subj-card" onclick="show('number-system',null)"><span class="icon">🔢</span><div class="info"><h4>Maths</h4><p>Arithmetic · Geometry · Algebra · Trigonometry</p></div><span class="arr">›</span></div>
+      <div class="subj-card" onclick="show('grammar',null)"><span class="icon">📝</span><div class="info"><h4>English</h4><p>Grammar · Vocabulary · Comprehension</p></div><span class="arr">›</span></div>
+      <div class="subj-card" onclick="show('analogy',null)"><span class="icon">🧩</span><div class="info"><h4>Reasoning</h4><p>Verbal · Non-Verbal · Logical</p></div><span class="arr">›</span></div>
     </div>
   </div>
 
@@ -498,7 +580,7 @@ body {
 
 <script>
 /* ── DATA ── */
-const TOTAL = 12;
+const TOTAL = 28;
 const done = new Set(JSON.parse(localStorage.getItem('tak_done')||'[]'));
 
 function blank(title, subject, color, desc) {
@@ -820,22 +902,52 @@ const topics = {
 `
 },
 
-/* ── MEDIEVAL INDIA — PLACEHOLDERS ── */
+
+/* ── MEDIEVAL INDIA ── */
 'delhi-sultanate': blank('Delhi Sultanate','Medieval History','#c9973a','Slave, Khilji, Tughlaq, Sayyid & Lodi dynasties.'),
 'mughal':          blank('Mughal Empire','Medieval History','#c9973a','Babur to Aurangzeb — administration, culture & decline.'),
 'bhakti-sufi':     blank('Bhakti & Sufi Movement','Medieval History','#c9973a','Saints, poets, and the movement for social reform.'),
-'modern-india':    blank('Modern India','Modern History','#4e9a72','1857 Revolt, Indian National Congress, Freedom Struggle.'),
+'vijayanagar':     blank('Vijayanagar & Bahamani Empire','Medieval History','#c9973a','Vijayanagar Empire, Bahamani Kingdom, regional dynasties.'),
 
-/* ── OTHER SUBJECTS ── */
-'physical-geo': blank('Physical Geography','Geography','#4e9a72','Landforms, rivers, climate, soil, ocean currents.'),
-'indian-geo':   blank('Indian Geography','Geography','#4e9a72','Physiographic divisions, rivers, states, resources.'),
-'constitution': blank('Indian Constitution','Polity','#4e7fc9','Preamble, Fundamental Rights, DPSPs, Amendments.'),
-'parliament':   blank('Parliament','Polity','#4e7fc9','Lok Sabha, Rajya Sabha, Legislative process.'),
-'economy':      blank('Basics of Economy','Economy','#c9973a','GDP, GNP, Inflation, Monetary policy, Budget.'),
-'physics':      blank('Physics','Science','#9a4ec9','Laws of Motion, Thermodynamics, Optics, Electricity.'),
-'chemistry':    blank('Chemistry','Science','#9a4ec9','Periodic table, Acids & Bases, Metals, Reactions.'),
-'biology':      blank('Biology','Science','#9a4ec9','Cell theory, Human body, Genetics, Diseases.'),
-'current':      blank('Monthly Digest','Current Affairs','#7a7a7a','National, International, Awards, Sports, Schemes.'),
+/* ── MODERN INDIA ── */
+'modern-india':    blank('Modern India','Modern History','#4e9a72','1857 Revolt, Indian National Congress, Freedom Struggle, Partition.'),
+
+/* ── POLITY ── */
+'constitution': blank('Indian Constitution','Polity','#4e7fc9','Preamble, Fundamental Rights, DPSPs, Amendments, Federal structure.'),
+'parliament':   blank('Parliament','Polity','#4e7fc9','Lok Sabha, Rajya Sabha, Legislative process, Sessions.'),
+
+/* ── GEOGRAPHY ── */
+'physical-geo': blank('Physical Geography','Geography','#4e9a72','Landforms, rivers, climate, soil, natural vegetation, ocean currents.'),
+'indian-geo':   blank('Indian Geography','Geography','#4e9a72','Physiographic divisions, rivers, states, resources, agriculture.'),
+
+/* ── ECONOMICS ── */
+'economy': blank('Basics of Economy','Economics','#c9973a','GDP, GNP, Inflation, Monetary policy, Five-year plans.'),
+'budget':  blank('Budget & Planning','Economics','#c9973a','Union Budget, Economic planning, NITI Aayog, fiscal policy.'),
+
+/* ── SCIENCE ── */
+'physics':   blank('Physics','Science','#9a4ec9','Laws of Motion, Thermodynamics, Optics, Electricity, Sound.'),
+'chemistry': blank('Chemistry','Science','#9a4ec9','Periodic table, Acids & Bases, Metals, Chemical reactions.'),
+'biology':   blank('Biology','Science','#9a4ec9','Cell theory, Human body systems, Genetics, Diseases.'),
+
+/* ── STATIC GK & CURRENT AFFAIRS ── */
+'static-gk': blank('Static GK','Static GK','#c96060','Important places, persons, awards, books, first in India & world.'),
+'current':   blank('Monthly Digest','Current Affairs','#7a7a7a','National, International, Awards, Sports, Science & Technology, Schemes.'),
+
+/* ── MATHS ── */
+'number-system': blank('Number System','Maths','#4e9a72','Types of numbers, divisibility rules, HCF, LCM, remainders.'),
+'percentage':    blank('Percentage','Maths','#4e9a72','Percentage basics, increase/decrease, applications.'),
+'profit-loss':   blank('Profit & Loss','Maths','#4e9a72','Cost price, selling price, profit %, loss %, discount.'),
+'geometry':      blank('Geometry','Maths','#4e7fc9','Lines, angles, triangles, circles, mensuration.'),
+'algebra':       blank('Algebra','Maths','#4e7fc9','Linear equations, quadratic equations, identities.'),
+
+/* ── ENGLISH ── */
+'grammar': blank('Grammar','English','#c9973a','Tenses, articles, prepositions, active-passive, direct-indirect.'),
+'vocab':   blank('Vocabulary','English','#c9973a','Synonyms, antonyms, one-word substitution, idioms & phrases.'),
+
+/* ── REASONING ── */
+'analogy': blank('Analogy','Reasoning','#9a4ec9','Word analogy, number analogy, letter analogy.'),
+'series':  blank('Series','Reasoning','#9a4ec9','Number series, letter series, mixed series.'),
+'figures': blank('Figures & Patterns','Reasoning','#4e9a72','Mirror image, paper cutting, embedded figures, pattern completion.'),
 };
 
 /* ══════════════════════════════
