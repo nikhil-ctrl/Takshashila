@@ -45,12 +45,38 @@ body {
   display: flex;
   min-height: 100vh;
   line-height: 1.7;
+  cursor: none;
 }
 
 /* ── SCROLLBAR ── */
 ::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+/* ── CURSOR GLOW ── */
+#cursor {
+  position: fixed;
+  width: 10px; height: 10px;
+  background: var(--accent);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: transform 0.1s, width 0.2s, height 0.2s, opacity 0.2s;
+  mix-blend-mode: screen;
+}
+#cursor-glow {
+  position: fixed;
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, rgba(201,151,58,0.18) 0%, transparent 70%);
+  transition: transform 0.15s ease, width 0.25s, height 0.25s, opacity 0.25s;
+}
+body.hovering #cursor { width: 16px; height: 16px; background: var(--accent); opacity: 1; }
+body.hovering #cursor-glow { width: 80px; height: 80px; background: radial-gradient(circle, rgba(201,151,58,0.28) 0%, transparent 70%); }
 
 /* ══════════════════════════════
    SIDEBAR
@@ -62,8 +88,10 @@ body {
   border-right: 1px solid var(--border);
   display: flex; flex-direction: column;
   overflow-y: auto; z-index: 100;
+  transition: transform 0.3s ease;
 }
 #sidebar::-webkit-scrollbar { width: 0; }
+#sidebar.hidden { transform: translateX(-100%); }
 
 .s-logo {
   padding: 22px 20px 16px;
@@ -82,7 +110,7 @@ body {
   border: 1px solid var(--border); border-radius: 6px;
   color: var(--text); font-family: 'Inter', sans-serif;
   font-size: 0.78rem; padding: 6px 10px; outline: none;
-  transition: border-color 0.15s;
+  transition: border-color 0.15s; cursor: text;
 }
 .s-search input:focus { border-color: var(--accent); }
 .s-search input::placeholder { color: var(--text3); }
@@ -130,83 +158,134 @@ body {
 .s-topic.done { color: var(--green); }
 .s-topic .chk { font-size: 0.62rem; color: var(--green); margin-left: 4px; }
 
-.s-bottom {
-  border-top: 1px solid var(--border);
-  padding: 14px 20px;
+/* ── SIDEBAR OVERLAY (mobile) ── */
+#sidebar-overlay {
+  display: none;
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.6);
+  z-index: 99;
 }
-.prog-row { display: flex; justify-content: space-between; font-size: 0.7rem; color: var(--text2); margin-bottom: 5px; }
-.prog-bar { height: 2px; background: var(--border); border-radius: 2px; overflow: hidden; }
-.prog-fill { height: 100%; background: var(--accent); border-radius: 2px; transition: width 0.4s ease; }
-.prog-nums { display: flex; gap: 12px; margin-top: 8px; }
-.pn { font-size: 0.68rem; color: var(--text2); }
-.pn b { color: var(--text); font-weight: 500; }
+#sidebar-overlay.show { display: block; }
 
 /* ══════════════════════════════
    TOPBAR
 ══════════════════════════════ */
-#main { margin-left: var(--sidebar); flex: 1; display: flex; flex-direction: column; }
+#main { margin-left: var(--sidebar); flex: 1; display: flex; flex-direction: column; transition: margin-left 0.3s; }
 
 #topbar {
   position: sticky; top: 0; z-index: 50;
   background: var(--bg2); border-bottom: 1px solid var(--border);
-  height: 46px; padding: 0 32px;
-  display: flex; align-items: center; gap: 12px;
+  height: 52px; padding: 0 28px;
+  display: flex; align-items: center; gap: 10px;
 }
+.t-logo-inline {
+  font-family: 'Merriweather', serif;
+  font-size: 0.9rem; font-weight: 700;
+  color: var(--accent); display: none;
+}
+#menu-btn {
+  display: none;
+  background: none; border: 1px solid var(--border);
+  border-radius: 7px; color: var(--text2);
+  width: 34px; height: 34px;
+  cursor: pointer; font-size: 1rem;
+  align-items: center; justify-content: center;
+  transition: all 0.15s; flex-shrink: 0;
+}
+#menu-btn:hover { color: var(--text); border-color: var(--text2); }
 .t-crumb { font-size: 0.75rem; color: var(--text2); flex: 1; }
 .t-crumb b { color: var(--text); font-weight: 500; }
+
 .t-btn {
+  display: flex; align-items: center; gap: 5px;
   background: none; border: 1px solid var(--border);
-  border-radius: 6px; color: var(--text2);
-  padding: 4px 12px; font-family: 'Inter', sans-serif;
-  font-size: 0.72rem; cursor: pointer; transition: all 0.15s;
+  border-radius: 7px; color: var(--text2);
+  padding: 5px 13px; font-family: 'Inter', sans-serif;
+  font-size: 0.72rem; cursor: pointer; transition: all 0.2s;
+  white-space: nowrap;
 }
-.t-btn:hover { color: var(--text); border-color: var(--text2); }
+.t-btn:hover { color: var(--accent); border-color: var(--accent); background: rgba(201,151,58,0.06); }
+.t-btn svg { width: 13px; height: 13px; }
 
 /* ══════════════════════════════
    HOME PAGE
 ══════════════════════════════ */
-#home { padding: 48px 48px 80px; max-width: 800px; }
+#home { padding: 52px 52px 100px; max-width: 860px; }
 
-.home-eyebrow {
-  font-size: 0.68rem; font-weight: 600; letter-spacing: 0.12em;
-  text-transform: uppercase; color: var(--accent);
-  margin-bottom: 10px;
-}
-.home-h1 {
+/* Hero */
+.home-hero { margin-bottom: 56px; }
+.home-hero h1 {
   font-family: 'Merriweather', serif;
-  font-size: 2rem; font-weight: 700; line-height: 1.25;
-  margin-bottom: 14px; color: var(--text);
+  font-size: 2.6rem; font-weight: 700; line-height: 1.2;
+  color: var(--text); margin-bottom: 12px;
 }
-.home-h1 em { font-style: italic; color: var(--accent); }
-.home-desc { font-size: 0.9rem; color: var(--text2); max-width: 560px; margin-bottom: 40px; line-height: 1.8; }
+.home-hero h1 em { font-style: italic; color: var(--accent); }
+.home-hero p {
+  font-size: 0.92rem; color: var(--text2);
+  max-width: 540px; line-height: 1.85;
+  border-left: 2px solid var(--border);
+  padding-left: 14px; margin-top: 16px;
+}
 
-.home-section-h { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text3); margin-bottom: 10px; }
+/* Subject blocks on home */
+.home-section-label {
+  font-size: 0.62rem; font-weight: 700; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--text3);
+  margin-bottom: 14px; margin-top: 40px;
+}
+.home-section-label:first-of-type { margin-top: 0; }
 
-.steps { display: flex; flex-direction: column; gap: 6px; margin-bottom: 40px; }
-.step {
-  display: flex; gap: 14px; align-items: flex-start;
-  padding: 12px 14px; border: 1px solid var(--border);
-  border-radius: 8px; background: var(--bg2);
+.subj-block {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--bg2);
+  margin-bottom: 10px;
+  overflow: hidden;
+  transition: border-color 0.2s;
 }
-.step-n {
-  font-family: 'Merriweather', serif; font-size: 1.2rem;
-  font-weight: 700; color: var(--accent); flex-shrink: 0; line-height: 1; margin-top: 2px;
-}
-.step h4 { font-size: 0.82rem; font-weight: 600; margin-bottom: 2px; }
-.step p { font-size: 0.76rem; color: var(--text2); }
+.subj-block:hover { border-color: rgba(201,151,58,0.4); }
 
-.subj-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 8px; }
-.subj-card {
-  display: flex; align-items: center; gap: 12px;
-  padding: 12px 14px; border: 1px solid var(--border);
-  border-radius: 8px; background: var(--bg2); cursor: pointer;
-  transition: border-color 0.15s, background 0.15s;
+.subj-block-header {
+  display: flex; align-items: center; gap: 14px;
+  padding: 16px 20px; cursor: pointer;
+  user-select: none;
 }
-.subj-card:hover { border-color: var(--accent); background: rgba(201,151,58,0.04); }
-.subj-card .icon { font-size: 1.1rem; width: 28px; text-align: center; flex-shrink: 0; }
-.subj-card .info h4 { font-size: 0.82rem; font-weight: 600; }
-.subj-card .info p { font-size: 0.7rem; color: var(--text2); margin-top: 1px; }
-.subj-card .arr { margin-left: auto; font-size: 0.7rem; color: var(--text3); }
+.subj-block-icon {
+  width: 36px; height: 36px; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem; flex-shrink: 0;
+}
+.subj-block-header h3 { font-size: 0.95rem; font-weight: 600; }
+.subj-block-header p { font-size: 0.75rem; color: var(--text2); margin-top: 1px; }
+.subj-block-arr {
+  margin-left: auto; font-size: 0.6rem;
+  color: var(--text3); transition: transform 0.2s; flex-shrink: 0;
+}
+.subj-block.open .subj-block-arr { transform: rotate(90deg); }
+
+.subj-block-body { display: none; padding: 0 20px 16px; }
+.subj-block.open .subj-block-body { display: block; }
+
+.subj-block-section { margin-top: 12px; }
+.subj-block-section-label {
+  font-size: 0.6rem; font-weight: 600; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--text3);
+  margin-bottom: 6px; padding-left: 2px;
+}
+.subj-topics-grid {
+  display: flex; flex-wrap: wrap; gap: 6px;
+}
+.subj-topic-chip {
+  font-size: 0.76rem; color: var(--text2);
+  background: var(--bg3); border: 1px solid var(--border);
+  border-radius: 6px; padding: 5px 12px;
+  cursor: pointer; transition: all 0.15s;
+  white-space: nowrap;
+}
+.subj-topic-chip:hover {
+  background: rgba(201,151,58,0.08);
+  border-color: var(--accent); color: var(--accent);
+}
 
 /* ══════════════════════════════
    NOTES PAGE — GFG-STYLE
@@ -357,20 +436,27 @@ body {
 .art { animation: fadeUp 0.25s ease; }
 @keyframes fadeUp { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
 
-/* Responsive */
+/* ── RESPONSIVE ── */
 @media (max-width: 768px) {
-  :root { --sidebar: 0px; }
-  #sidebar { transform: translateX(-260px); }
-  #main { margin-left: 0; }
+  body { cursor: auto; }
+  #cursor, #cursor-glow { display: none; }
+  #sidebar { transform: translateX(-100%); }
+  #sidebar.open { transform: translateX(0); }
+  #main { margin-left: 0 !important; }
+  #menu-btn { display: flex !important; }
+  .t-logo-inline { display: block !important; }
   #article { padding: 24px 20px 60px; }
   #home { padding: 28px 20px 60px; }
-  .subj-grid { grid-template-columns: 1fr; }
   .kv-grid { grid-template-columns: 1fr; }
   .mcq-opts { grid-template-columns: 1fr; }
+  .home-hero h1 { font-size: 1.8rem; }
 }
 </style>
 </head>
 <body>
+<div id="cursor"></div>
+<div id="cursor-glow"></div>
+<div id="sidebar-overlay" onclick="closeSidebar()"></div>
 
 <!-- ══════════════════════════════
      SIDEBAR
@@ -529,15 +615,6 @@ body {
     </div>
 
   </nav>
-
-  <div class="s-bottom">
-    <div class="prog-row"><span>Progress</span><span id="pct">0%</span></div>
-    <div class="prog-bar"><div class="prog-fill" id="bar" style="width:0%"></div></div>
-    <div class="prog-nums">
-      <span class="pn"><b id="st-done">0</b> done</span>
-      <span class="pn"><b id="st-left">28</b> left</span>
-    </div>
-  </div>
 </aside>
 
 <!-- ══════════════════════════════
@@ -545,31 +622,217 @@ body {
 ══════════════════════════════ -->
 <main id="main">
   <div id="topbar">
+    <button id="menu-btn" onclick="toggleSidebar()">☰</button>
+    <span class="t-logo-inline">Takshashila</span>
     <div class="t-crumb" id="crumb">Takshashila</div>
-    <button class="t-btn" onclick="goHome()">Home</button>
-    <button class="t-btn" id="themeBtn" onclick="toggleTheme()">Light</button>
+    <button class="t-btn" onclick="goHome()">
+      <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7A1 1 0 003 11h1v6a1 1 0 001 1h4v-4h2v4h4a1 1 0 001-1v-6h1a1 1 0 00.707-1.707l-7-7z"/></svg>
+      Home
+    </button>
+    <button class="t-btn" id="themeBtn" onclick="toggleTheme()">
+      <svg id="theme-icon" viewBox="0 0 20 20" fill="currentColor"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"/></svg>
+      <span id="theme-label">Light</span>
+    </button>
   </div>
 
   <!-- HOME -->
   <div id="home">
-    <div class="home-eyebrow">SSC CGL · UPSC · RRB · All Government Exams</div>
-    <h1 class="home-h1">Welcome to <em>Takshashila</em></h1>
-    <p class="home-desc">Named after the world's first university — a notes portal for all government exams. Notes are built strictly from your study sources: YouTube lectures, PDFs, and book images. Nothing extra is added.</p>
 
-    <div class="home-section-h" style="margin-bottom:10px">How it works</div>
-    <div class="steps" style="margin-bottom:36px">
-      <div class="step"><div class="step-n">1</div><div><h4>Share your source</h4><p>A YouTube link, PDF pages, or book images for any topic you studied.</p></div></div>
-      <div class="step"><div class="step-n">2</div><div><h4>Notes are generated</h4><p>Claude builds notes strictly from your source — no extra content added.</p></div></div>
-      <div class="step"><div class="step-n">3</div><div><h4>Portal grows</h4><p>Topic by topic, your complete revision portal builds up over time.</p></div></div>
+    <!-- Hero -->
+    <div class="home-hero">
+      <h1>Welcome to <em>Takshashila</em></h1>
+      <p>Named after <strong>Takshashila</strong> — the world's first university, established around 700 BCE in ancient India. Scholars from across the world came here to study medicine, philosophy, grammar, mathematics, and statecraft. This portal carries that spirit — a place to build knowledge, topic by topic, from your own sources.</p>
     </div>
 
-    <div class="home-section-h">Subjects</div>
-    <div class="subj-grid">
-      <div class="subj-card" onclick="show('arab-turkish',null)"><span class="icon">🏛️</span><div class="info"><h4>GS / GA</h4><p>History · Polity · Geography · Economics · Science · Static GK · Current Affairs</p></div><span class="arr">›</span></div>
-      <div class="subj-card" onclick="show('number-system',null)"><span class="icon">🔢</span><div class="info"><h4>Maths</h4><p>Arithmetic · Geometry · Algebra · Trigonometry</p></div><span class="arr">›</span></div>
-      <div class="subj-card" onclick="show('grammar',null)"><span class="icon">📝</span><div class="info"><h4>English</h4><p>Grammar · Vocabulary · Comprehension</p></div><span class="arr">›</span></div>
-      <div class="subj-card" onclick="show('analogy',null)"><span class="icon">🧩</span><div class="info"><h4>Reasoning</h4><p>Verbal · Non-Verbal · Logical</p></div><span class="arr">›</span></div>
+    <!-- GS / GA -->
+    <div class="home-section-label">GS / GA</div>
+
+    <div class="subj-block open">
+      <div class="subj-block-header" onclick="togBlock(this.parentElement)">
+        <div class="subj-block-icon" style="background:rgba(201,96,96,0.1)">🏛️</div>
+        <div><h3>History</h3><p>Ancient · Medieval · Modern India</p></div>
+        <span class="subj-block-arr">▶</span>
+      </div>
+      <div class="subj-block-body">
+        <div class="subj-block-section">
+          <div class="subj-block-section-label">Ancient India</div>
+          <div class="subj-topics-grid">
+            <div class="subj-topic-chip" onclick="show('ancient-india',null)">Ancient India</div>
+          </div>
+        </div>
+        <div class="subj-block-section">
+          <div class="subj-block-section-label">Medieval India</div>
+          <div class="subj-topics-grid">
+            <div class="subj-topic-chip" onclick="show('arab-turkish',null)">Arab & Turkish Invasions</div>
+            <div class="subj-topic-chip" onclick="show('delhi-sultanate',null)">Delhi Sultanate</div>
+            <div class="subj-topic-chip" onclick="show('mughal',null)">Mughal Empire</div>
+            <div class="subj-topic-chip" onclick="show('bhakti-sufi',null)">Bhakti & Sufi Movement</div>
+            <div class="subj-topic-chip" onclick="show('vijayanagar',null)">Vijayanagar & Bahamani</div>
+          </div>
+        </div>
+        <div class="subj-block-section">
+          <div class="subj-block-section-label">Modern India</div>
+          <div class="subj-topics-grid">
+            <div class="subj-topic-chip" onclick="show('modern-india',null)">Modern India</div>
+          </div>
+        </div>
+      </div>
     </div>
+
+    <div class="subj-block">
+      <div class="subj-block-header" onclick="togBlock(this.parentElement)">
+        <div class="subj-block-icon" style="background:rgba(78,127,201,0.1)">⚖️</div>
+        <div><h3>Polity</h3><p>Constitution · Parliament</p></div>
+        <span class="subj-block-arr">▶</span>
+      </div>
+      <div class="subj-block-body">
+        <div class="subj-topics-grid">
+          <div class="subj-topic-chip" onclick="show('constitution',null)">Indian Constitution</div>
+          <div class="subj-topic-chip" onclick="show('parliament',null)">Parliament</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="subj-block">
+      <div class="subj-block-header" onclick="togBlock(this.parentElement)">
+        <div class="subj-block-icon" style="background:rgba(78,154,114,0.1)">🌍</div>
+        <div><h3>Geography</h3><p>Physical · Indian Geography</p></div>
+        <span class="subj-block-arr">▶</span>
+      </div>
+      <div class="subj-block-body">
+        <div class="subj-topics-grid">
+          <div class="subj-topic-chip" onclick="show('physical-geo',null)">Physical Geography</div>
+          <div class="subj-topic-chip" onclick="show('indian-geo',null)">Indian Geography</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="subj-block">
+      <div class="subj-block-header" onclick="togBlock(this.parentElement)">
+        <div class="subj-block-icon" style="background:rgba(201,151,58,0.1)">💰</div>
+        <div><h3>Economics</h3><p>Economy · Budget & Planning</p></div>
+        <span class="subj-block-arr">▶</span>
+      </div>
+      <div class="subj-block-body">
+        <div class="subj-topics-grid">
+          <div class="subj-topic-chip" onclick="show('economy',null)">Basics of Economy</div>
+          <div class="subj-topic-chip" onclick="show('budget',null)">Budget & Planning</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="subj-block">
+      <div class="subj-block-header" onclick="togBlock(this.parentElement)">
+        <div class="subj-block-icon" style="background:rgba(154,78,201,0.1)">⚗️</div>
+        <div><h3>Science</h3><p>Physics · Chemistry · Biology</p></div>
+        <span class="subj-block-arr">▶</span>
+      </div>
+      <div class="subj-block-body">
+        <div class="subj-topics-grid">
+          <div class="subj-topic-chip" onclick="show('physics',null)">Physics</div>
+          <div class="subj-topic-chip" onclick="show('chemistry',null)">Chemistry</div>
+          <div class="subj-topic-chip" onclick="show('biology',null)">Biology</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="subj-block">
+      <div class="subj-block-header" onclick="togBlock(this.parentElement)">
+        <div class="subj-block-icon" style="background:rgba(201,96,96,0.1)">📌</div>
+        <div><h3>Static GK</h3><p>Awards · Records · Firsts</p></div>
+        <span class="subj-block-arr">▶</span>
+      </div>
+      <div class="subj-block-body">
+        <div class="subj-topics-grid">
+          <div class="subj-topic-chip" onclick="show('static-gk',null)">Static GK</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="subj-block">
+      <div class="subj-block-header" onclick="togBlock(this.parentElement)">
+        <div class="subj-block-icon" style="background:rgba(120,120,120,0.1)">📰</div>
+        <div><h3>Current Affairs</h3><p>Monthly digest</p></div>
+        <span class="subj-block-arr">▶</span>
+      </div>
+      <div class="subj-block-body">
+        <div class="subj-topics-grid">
+          <div class="subj-topic-chip" onclick="show('current',null)">Monthly Digest</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Maths -->
+    <div class="home-section-label">Maths</div>
+
+    <div class="subj-block">
+      <div class="subj-block-header" onclick="togBlock(this.parentElement)">
+        <div class="subj-block-icon" style="background:rgba(78,154,114,0.1)">🔢</div>
+        <div><h3>Maths</h3><p>Arithmetic · Geometry · Algebra</p></div>
+        <span class="subj-block-arr">▶</span>
+      </div>
+      <div class="subj-block-body">
+        <div class="subj-block-section">
+          <div class="subj-block-section-label">Arithmetic</div>
+          <div class="subj-topics-grid">
+            <div class="subj-topic-chip" onclick="show('number-system',null)">Number System</div>
+            <div class="subj-topic-chip" onclick="show('percentage',null)">Percentage</div>
+            <div class="subj-topic-chip" onclick="show('profit-loss',null)">Profit & Loss</div>
+          </div>
+        </div>
+        <div class="subj-block-section">
+          <div class="subj-block-section-label">Geometry & Algebra</div>
+          <div class="subj-topics-grid">
+            <div class="subj-topic-chip" onclick="show('geometry',null)">Geometry</div>
+            <div class="subj-topic-chip" onclick="show('algebra',null)">Algebra</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- English -->
+    <div class="home-section-label">English</div>
+
+    <div class="subj-block">
+      <div class="subj-block-header" onclick="togBlock(this.parentElement)">
+        <div class="subj-block-icon" style="background:rgba(201,151,58,0.1)">📝</div>
+        <div><h3>English</h3><p>Grammar · Vocabulary</p></div>
+        <span class="subj-block-arr">▶</span>
+      </div>
+      <div class="subj-block-body">
+        <div class="subj-topics-grid">
+          <div class="subj-topic-chip" onclick="show('grammar',null)">Grammar</div>
+          <div class="subj-topic-chip" onclick="show('vocab',null)">Vocabulary</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Reasoning -->
+    <div class="home-section-label">Reasoning</div>
+
+    <div class="subj-block">
+      <div class="subj-block-header" onclick="togBlock(this.parentElement)">
+        <div class="subj-block-icon" style="background:rgba(154,78,201,0.1)">🧩</div>
+        <div><h3>Reasoning</h3><p>Verbal · Non-Verbal</p></div>
+        <span class="subj-block-arr">▶</span>
+      </div>
+      <div class="subj-block-body">
+        <div class="subj-block-section">
+          <div class="subj-block-section-label">Verbal</div>
+          <div class="subj-topics-grid">
+            <div class="subj-topic-chip" onclick="show('analogy',null)">Analogy</div>
+            <div class="subj-topic-chip" onclick="show('series',null)">Series</div>
+          </div>
+        </div>
+        <div class="subj-block-section">
+          <div class="subj-block-section-label">Non-Verbal</div>
+          <div class="subj-topics-grid">
+            <div class="subj-topic-chip" onclick="show('figures',null)">Figures & Patterns</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 
   <!-- NOTES PAGE -->
@@ -1009,20 +1272,14 @@ function markDone(id, btn) {
   localStorage.setItem('tak_done', JSON.stringify([...done]));
   btn.textContent = done.has(id) ? '✓ Completed' : 'Mark as Done';
   btn.classList.toggle('completed', done.has(id));
-  updateProgress();
   const el = document.getElementById('chk-' + id);
   if (el) el.textContent = done.has(id) ? '✓' : '';
   const navEl = document.querySelector(`.s-topic[onclick*="'${id}'"]`);
   if (navEl) navEl.classList.toggle('done', done.has(id));
 }
 
-function updateProgress() {
-  const n = done.size, pct = Math.round(n / TOTAL * 100);
-  document.getElementById('pct').textContent = pct + '%';
-  document.getElementById('bar').style.width = pct + '%';
-  document.getElementById('st-done').textContent = n;
-  document.getElementById('st-left').textContent = TOTAL - n;
-}
+
+
 
 /* ══════════════════════════════
    MCQ
@@ -1050,15 +1307,54 @@ function doSearch(v) {
   });
 }
 
+
+/* ══════════════════════════════
+   BLOCK TOGGLE (home page)
+══════════════════════════════ */
+function togBlock(el) { el.classList.toggle('open'); }
+
+/* ══════════════════════════════
+   SIDEBAR MOBILE
+══════════════════════════════ */
+function toggleSidebar() {
+  const s = document.getElementById('sidebar');
+  const o = document.getElementById('sidebar-overlay');
+  s.classList.toggle('open');
+  o.classList.toggle('show');
+}
+function closeSidebar() {
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('sidebar-overlay').classList.remove('show');
+}
+
 /* ══════════════════════════════
    THEME
 ══════════════════════════════ */
 function toggleTheme() {
   const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
   document.documentElement.setAttribute('data-theme', isDark ? 'light' : 'dark');
-  document.getElementById('themeBtn').textContent = isDark ? 'Dark' : 'Light';
+  document.getElementById('theme-label').textContent = isDark ? 'Dark' : 'Light';
+  document.getElementById('theme-icon').innerHTML = isDark
+    ? '<path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd"/>'
+    : '<path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"/>';
   localStorage.setItem('tak_theme', isDark ? 'light' : 'dark');
 }
+
+/* ══════════════════════════════
+   CURSOR GLOW
+══════════════════════════════ */
+const cur = document.getElementById('cursor');
+const curG = document.getElementById('cursor-glow');
+document.addEventListener('mousemove', e => {
+  cur.style.left = e.clientX + 'px';
+  cur.style.top = e.clientY + 'px';
+  curG.style.left = e.clientX + 'px';
+  curG.style.top = e.clientY + 'px';
+});
+document.addEventListener('mouseover', e => {
+  const el = e.target.closest('button, a, .s-subject, .s-topic, .subj-block-header, .subj-topic-chip, .mcq-opt, .subj-card, [onclick]');
+  document.body.classList.toggle('hovering', !!el);
+});
 
 /* ══════════════════════════════
    INIT
@@ -1066,7 +1362,10 @@ function toggleTheme() {
 const savedTheme = localStorage.getItem('tak_theme');
 if (savedTheme) {
   document.documentElement.setAttribute('data-theme', savedTheme);
-  document.getElementById('themeBtn').textContent = savedTheme === 'light' ? 'Dark' : 'Light';
+  document.getElementById('theme-label').textContent = savedTheme === 'light' ? 'Dark' : 'Light';
+  if (savedTheme === 'light') {
+    document.getElementById('theme-icon').innerHTML = '<path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd"/>';
+  }
 }
 done.forEach(id => {
   const el = document.getElementById('chk-' + id);
@@ -1074,7 +1373,6 @@ done.forEach(id => {
   const navEl = document.querySelector(`.s-topic[onclick*="'${id}'"]`);
   if (navEl) navEl.classList.add('done');
 });
-updateProgress();
 </script>
 </body>
 </html>
