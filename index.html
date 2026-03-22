@@ -192,7 +192,7 @@ body.hovering #cursor-glow { width: 80px; height: 80px; background: radial-gradi
 
 #topbar {
   position: sticky; top: 0; z-index: 50;
-  background: var(--bg2); border-bottom: 1px solid var(--border);
+  background: transparent; border-bottom: none;
   height: 52px; padding: 0 28px;
   display: flex; align-items: center; gap: 10px;
 }
@@ -216,14 +216,104 @@ body.hovering #cursor-glow { width: 80px; height: 80px; background: radial-gradi
 
 .t-btn {
   display: flex; align-items: center; gap: 5px;
-  background: none; border: 1px solid var(--border);
+  background: none; border: none;
   border-radius: 7px; color: var(--text2);
   padding: 5px 13px; font-family: 'Source Sans 3', sans-serif;
   font-size: 0.72rem; cursor: pointer; transition: all 0.2s;
   white-space: nowrap;
 }
-.t-btn:hover { color: var(--accent); border-color: var(--accent); background: rgba(154,114,184,0.08); }
-.t-btn svg { width: 13px; height: 13px; }
+.t-btn:hover { color: var(--accent); background: rgba(154,114,184,0.1); }
+.t-nav { display: flex; align-items: center; gap: 4px; }
+.t-nav-item { position: relative; }
+.t-btn-nav { opacity: 0.75; }
+.t-soon {
+  display: none;
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  color: var(--accent);
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 6px;
+  white-space: nowrap;
+  z-index: 200;
+}
+.t-soon::before {
+  content: '';
+  position: absolute;
+  top: -5px; left: 50%;
+  transform: translateX(-50%);
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 5px solid var(--border);
+}
+.t-nav-item:hover .t-soon { display: block; }
+.t-nav-item:hover .t-btn-nav { opacity: 1; color: var(--accent); }
+
+/* Exams dropdown */
+.t-dropdown-wrap { position: relative; }
+.t-dropdown {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 280px;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 8px 0;
+  z-index: 300;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+  padding-top: 12px;
+  margin-top: 0;
+}
+.t-dropdown::before {
+  content: '';
+  position: absolute;
+  top: -5px; left: 16px;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-bottom: 5px solid var(--border);
+}
+/* Bridge gap between button and dropdown so mouse can travel */
+.t-dropdown-wrap::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  height: 12px;
+}
+.t-dropdown-wrap:hover .t-dropdown-btn { opacity: 1; color: var(--accent); }
+.t-dropdown-section-label {
+  font-size: 0.6rem; font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--text3); padding: 6px 14px 3px;
+}
+.t-dropdown-item {
+  display: flex; align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 8px 14px;
+  font-size: 0.8rem; font-weight: 500;
+  color: var(--text2); cursor: pointer;
+  transition: background 0.12s, color 0.12s;
+  text-decoration: none; border: none;
+  background: none; width: 100%; text-align: left;
+  font-family: 'Source Sans 3', sans-serif;
+}
+.t-dropdown-item:hover { background: rgba(154,114,184,0.1); color: var(--accent); }
+.t-dropdown-item span {
+  font-size: 0.68rem; color: var(--text3);
+  font-weight: 400; text-align: right; flex-shrink: 0;
+}
+.t-dropdown-item:hover span { color: var(--text2); }
 
 /* ══════════════════════════════
    HOME PAGE
@@ -645,6 +735,7 @@ body.hovering #cursor-glow { width: 80px; height: 80px; background: radial-gradi
   #main { margin-left: 0 !important; }
   #menu-btn { display: flex !important; }
   .t-logo-inline { display: flex !important; }
+  .t-nav { display: none; }
   #article { padding: 24px 20px 60px; }
   #home { padding: 28px 20px 60px; }
   .kv-grid { grid-template-columns: 1fr; }
@@ -841,10 +932,56 @@ body.hovering #cursor-glow { width: 80px; height: 80px; background: radial-gradi
       <span style="font-family:'Playfair Display',serif;font-size:0.95rem;font-weight:700;color:var(--accent)">Takshashila</span>
     </span>
     <div class="t-crumb" id="crumb"></div>
-    <button class="t-btn" onclick="goHome()">
-      <span style="display:inline-flex;align-items:center"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span>
-      Home
-    </button>
+    <nav class="t-nav">
+      <button class="t-btn" onclick="goHome()">
+        <span style="display:inline-flex;align-items:center"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span>
+        Home
+      </button>
+      <div class="t-nav-item t-dropdown-wrap" id="examDropdownWrap" onmouseenter="openExamMenu()" onmouseleave="closeExamMenu()">
+        <button class="t-btn t-btn-nav t-dropdown-btn">
+          <span style="display:inline-flex;align-items:center"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg></span>
+          Exams
+          <span style="display:inline-flex;align-items:center;margin-left:2px"><svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
+        </button>
+        <div class="t-dropdown" id="examDropdown">
+          <div class="t-dropdown-section-label">SSC Exams</div>
+          <button class="t-dropdown-item" onclick="selectExam('SSC CGL')">SSC CGL <span>Combined Graduate Level</span></button>
+          <button class="t-dropdown-item" onclick="selectExam('SSC CHSL')">SSC CHSL <span>Combined Higher Secondary Level</span></button>
+          <button class="t-dropdown-item" onclick="selectExam('SSC MTS')">SSC MTS <span>Multi Tasking Staff</span></button>
+          <button class="t-dropdown-item" onclick="selectExam('SSC CPO')">SSC CPO <span>Central Police Organisations</span></button>
+          <button class="t-dropdown-item" onclick="selectExam('SSC GD')">SSC GD <span>General Duty Constable</span></button>
+          <button class="t-dropdown-item" onclick="selectExam('SSC JE')">SSC JE <span>Junior Engineer</span></button>
+          <button class="t-dropdown-item" onclick="selectExam('SSC Steno')">SSC Steno <span>Stenographer Grade C & D</span></button>
+          <div class="t-dropdown-section-label" style="margin-top:8px">Other Exams</div>
+          <button class="t-dropdown-item" onclick="selectExam('RRB NTPC')">RRB NTPC <span>Non-Technical Popular Category</span></button>
+          <button class="t-dropdown-item" onclick="selectExam('RRB Group D')">RRB Group D <span>Railway Group D</span></button>
+          <button class="t-dropdown-item" onclick="selectExam('UPSC CSE')">UPSC CSE <span>Civil Services Examination</span></button>
+          <button class="t-dropdown-item" onclick="selectExam('IBPS PO')">IBPS PO <span>Probationary Officer</span></button>
+          <button class="t-dropdown-item" onclick="selectExam('IBPS Clerk')">IBPS Clerk <span>Clerical Cadre</span></button>
+        </div>
+      </div>
+      <div class="t-nav-item">
+        <button class="t-btn t-btn-nav" onclick="comingSoon('Courses')">
+          <span style="display:inline-flex;align-items:center"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></span>
+          Courses
+        </button>
+        <span class="t-soon">Coming Soon</span>
+      </div>
+      <div class="t-nav-item">
+        <button class="t-btn t-btn-nav" onclick="comingSoon('Quiz')">
+          <span style="display:inline-flex;align-items:center"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg></span>
+          Quiz
+        </button>
+        <span class="t-soon">Coming Soon</span>
+      </div>
+      <div class="t-nav-item">
+        <button class="t-btn t-btn-nav" onclick="comingSoon('Typing')">
+          <span style="display:inline-flex;align-items:center"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="M6 8h.01M10 8h.01M14 8h.01M18 8h.01M8 12h.01M12 12h.01M16 12h.01M7 16h10"/></svg></span>
+          Typing
+        </button>
+        <span class="t-soon">Coming Soon</span>
+      </div>
+    </nav>
     <label class="switch" title="Toggle theme">
       <input type="checkbox" id="themeToggle" onchange="toggleTheme()"/>
       <div class="slider round">
@@ -1450,7 +1587,42 @@ function doSearch(v) {
 /* ══════════════════════════════
    BLOCK TOGGLE (home page)
 ══════════════════════════════ */
-function togBlock(el) { el.classList.toggle('open'); }
+function comingSoon(name) {
+  const btn = event.currentTarget;
+  const original = btn.innerHTML;
+  btn.style.color = 'var(--accent)';
+  btn.style.borderColor = 'var(--accent)';
+  setTimeout(() => {
+    btn.style.color = '';
+    btn.style.borderColor = '';
+  }, 1200);
+}
+
+function selectExam(name) {
+  const btn = document.querySelector('.t-dropdown-btn');
+  btn.style.color = 'var(--accent)';
+  btn.style.borderColor = 'var(--accent)';
+  document.getElementById('crumb').innerHTML = `Exam: <b>${name}</b>`;
+  setTimeout(() => {
+    btn.style.color = '';
+    btn.style.borderColor = '';
+  }, 800);
+}
+
+let examCloseTimer = null;
+function openExamMenu() {
+  if (examCloseTimer) { clearTimeout(examCloseTimer); examCloseTimer = null; }
+  document.getElementById('examDropdown').style.display = 'block';
+  document.querySelector('.t-dropdown-btn').style.color = 'var(--accent)';
+  
+}
+function closeExamMenu() {
+  examCloseTimer = setTimeout(() => {
+    document.getElementById('examDropdown').style.display = 'none';
+    document.querySelector('.t-dropdown-btn').style.color = '';
+    
+  }, 120);
+}
 
 /* ══════════════════════════════
    SIDEBAR MOBILE
