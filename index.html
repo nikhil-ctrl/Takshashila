@@ -229,8 +229,10 @@ body.hovering #cursor-glow { width: 80px; height: 80px; background: radial-gradi
    HOME PAGE
 ══════════════════════════════ */
 #home {
-  padding: 52px 52px 100px;
-  max-width: 1000px;
+  padding: 52px 56px 100px;
+  max-width: 100%;
+  width: 100%;
+  box-sizing: border-box;
   position: relative;
   z-index: 1;
 }
@@ -271,23 +273,25 @@ body.hovering #cursor-glow { width: 80px; height: 80px; background: radial-gradi
 @keyframes animStar { from { transform: translateY(0); } to { transform: translateY(-2000px); } }
 
 /* Hero */
-.home-hero { margin-bottom: 56px; }
+.home-hero { margin-bottom: 56px; max-width: 1200px; }
 .hero-inner {
   display: flex;
   align-items: center;
-  gap: 48px;
+  gap: 56px;
   min-height: 380px;
+  width: 100%;
 }
-.hero-text { flex: 1; min-width: 0; }
+.hero-text { flex: 1; min-width: 0; max-width: 520px; }
 .hero-illustration {
-  flex: 0 0 50%;
+  flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
+  min-width: 0;
 }
 .hero-illustration img {
   width: 100%;
-  max-width: 520px;
+  max-width: 560px;
   height: auto;
   display: block;
   border-radius: 16px;
@@ -564,9 +568,10 @@ body.hovering #cursor-glow { width: 80px; height: 80px; background: radial-gradi
 /* ── SUBJECT CARDS (Uiverse inspired) ── */
 .subject-cards-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 28px;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
   margin-top: 8px;
+  width: 100%;
 }
 .subj-card-new {
   position: relative;
@@ -629,6 +634,9 @@ body.hovering #cursor-glow { width: 80px; height: 80px; background: radial-gradi
 @keyframes fadeUp { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
 
 /* ── RESPONSIVE ── */
+@media (max-width: 1100px) {
+  .subject-cards-grid { grid-template-columns: repeat(2, 1fr); }
+}
 @media (max-width: 768px) {
   body { cursor: auto; }
   #cursor, #cursor-glow { display: none; }
@@ -642,9 +650,9 @@ body.hovering #cursor-glow { width: 80px; height: 80px; background: radial-gradi
   .kv-grid { grid-template-columns: 1fr; }
   .mcq-opts { grid-template-columns: 1fr; }
   .home-hero h1 { font-size: 1.8rem; }
-  .hero-inner { flex-direction: column; }
+  .hero-inner { flex-direction: column; gap: 28px; }
   .hero-illustration { width: 100%; }
-  .subject-cards-grid { grid-template-columns: 1fr; }
+  .subject-cards-grid { grid-template-columns: repeat(2, 1fr); }
 }
 </style>
 </head>
