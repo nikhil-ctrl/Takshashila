@@ -235,14 +235,14 @@ body.hovering #cursor-glow { width: 80px; height: 80px; background: radial-gradi
 .home-hero h1 {
   font-family: 'Playfair Display', serif;
   font-size: 2.6rem; font-weight: 700; line-height: 1.2;
-  color: var(--text); margin-bottom: 12px;
+  color: var(--text); margin-bottom: 0;
 }
 .home-hero h1 em { font-style: italic; color: var(--accent); }
 .home-hero p {
   font-size: 0.92rem; color: var(--text2);
   max-width: 540px; line-height: 1.85;
   border-left: 2px solid var(--border);
-  padding-left: 14px; margin-top: 16px;
+  padding-left: 14px; margin-top: 20px;
 }
 
 /* Subject blocks on home */
@@ -667,8 +667,10 @@ body.hovering #cursor-glow { width: 80px; height: 80px; background: radial-gradi
 
     <!-- Hero -->
     <div class="home-hero">
-      <img src="logo.png" alt="Takshashila" style="width:88px;height:88px;object-fit:contain;display:block;margin-bottom:24px;border-radius:12px"/>
-      <h1>Welcome to <em>Takshashila</em></h1>
+      <div style="display:flex;align-items:center;gap:20px;margin-bottom:16px">
+        <img src="logo.png" alt="Takshashila" style="width:72px;height:72px;object-fit:contain;flex-shrink:0;mix-blend-mode:lighten"/>
+        <h1 style="margin-bottom:0">Welcome to <em>Takshashila</em></h1>
+      </div>
       <p>Named after <strong>Takshashila</strong> — the world's first university, established around 700 BCE in ancient India. Scholars from across the world came here to study medicine, philosophy, grammar, mathematics, and statecraft. This portal carries that spirit — a place to build knowledge, topic by topic, from your own sources.</p>
     </div>
 
