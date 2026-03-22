@@ -4,42 +4,46 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Takshashila — Government Exam Notes</title>
-<link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet"/>
+<link rel="icon" type="image/png" href="logo.png"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Source+Sans+3:wght@300;400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet"/>
 <style>
-/* ── VARIABLES ── */
+/* ── VARIABLES — Aged Manuscript Palette ── */
 :root {
-  --bg:       #0f0f0f;
-  --bg2:      #161616;
-  --bg3:      #1e1e1e;
-  --border:   #2a2a2a;
-  --accent:   #c9973a;
-  --text:     #d8d5ce;
-  --text2:    #a09b90;
-  --text3:    #5a5650;
-  --green:    #4e9a72;
-  --red:      #c96060;
-  --blue:     #4e7fc9;
+  --bg:       #120e18;
+  --bg2:      #1c1628;
+  --bg3:      #261e36;
+  --border:   #2e2440;
+  --accent:   #9a72b8;
+  --accent2:  #7c5c90;
+  --text:     #e8e0f4;
+  --text2:    #a898c0;
+  --text3:    #5a4e70;
+  --green:    #5aaa80;
+  --red:      #c06070;
+  --blue:     #7090d0;
   --sidebar:  260px;
   --content:  760px;
 }
 [data-theme="light"] {
-  --bg:     #ffffff;
-  --bg2:    #f7f6f3;
-  --bg3:    #eeece8;
-  --border: #e0ddd6;
-  --text:   #1a1916;
-  --text2:  #6b6760;
-  --text3:  #b0ada8;
-  --green:  #2d7a52;
-  --red:    #a03030;
-  --blue:   #2a5fa0;
+  --bg:       #faf7f4;
+  --bg2:      #f0eaf6;
+  --bg3:      #e8e0f0;
+  --border:   #d8cce8;
+  --accent:   #7c5c90;
+  --accent2:  #9a72b8;
+  --text:     #201428;
+  --text2:    #6a5078;
+  --text3:    #b0a0c0;
+  --green:    #2d7a52;
+  --red:      #a03050;
+  --blue:     #3a5898;
 }
 
 /* ── RESET ── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; font-size: 16px; }
 body {
-  font-family: 'Inter', sans-serif;
+  font-family: 'Source Sans 3', sans-serif;
   background: var(--bg);
   color: var(--text);
   display: flex;
@@ -48,7 +52,25 @@ body {
   cursor: none;
 }
 
-/* ── SCROLLBAR ── */
+/* ── LUCIDE ICONS ── */
+.icon-wrap {
+  display: flex; align-items: center; justify-content: center;
+  width: 36px; height: 36px; border-radius: 9px; flex-shrink: 0;
+}
+.icon-wrap svg { width: 18px; height: 18px; stroke-width: 1.8; }
+.lucide-sm svg { width: 14px; height: 14px; stroke-width: 2; }
+.lucide-inline { display: inline-flex; align-items: center; vertical-align: middle; }
+.lucide-inline svg { width: 15px; height: 15px; stroke-width: 2; margin-right: 5px; }
+
+/* sidebar subject icon */
+.s-icon { display: inline-flex; align-items: center; flex-shrink: 0; }
+.s-icon svg { width: 15px; height: 15px; stroke-width: 1.8; color: inherit; }
+
+/* home block icon */
+.subj-block-icon svg { width: 20px; height: 20px; stroke-width: 1.8; }
+
+/* menu button icon */
+#menu-btn svg { width: 18px; height: 18px; stroke-width: 2; }
 ::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
@@ -72,11 +94,11 @@ body {
   pointer-events: none;
   z-index: 9998;
   transform: translate(-50%, -50%);
-  background: radial-gradient(circle, rgba(201,151,58,0.18) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(154,114,184,0.18) 0%, transparent 70%);
   transition: transform 0.15s ease, width 0.25s, height 0.25s, opacity 0.25s;
 }
 body.hovering #cursor { width: 16px; height: 16px; background: var(--accent); opacity: 1; }
-body.hovering #cursor-glow { width: 80px; height: 80px; background: radial-gradient(circle, rgba(201,151,58,0.28) 0%, transparent 70%); }
+body.hovering #cursor-glow { width: 80px; height: 80px; background: radial-gradient(circle, rgba(154,114,184,0.28) 0%, transparent 70%); }
 
 /* ══════════════════════════════
    SIDEBAR
@@ -94,21 +116,17 @@ body.hovering #cursor-glow { width: 80px; height: 80px; background: radial-gradi
 #sidebar.hidden { transform: translateX(-100%); }
 
 .s-logo {
-  padding: 22px 20px 16px;
+  padding: 18px 20px 16px;
   border-bottom: 1px solid var(--border);
+  transition: background 0.15s;
 }
-.s-logo h1 {
-  font-family: 'Merriweather', serif;
-  font-size: 1.05rem; font-weight: 700;
-  color: var(--accent); letter-spacing: 0.01em;
-}
-.s-logo p { font-size: 0.68rem; color: var(--text2); margin-top: 3px; letter-spacing: 0.05em; text-transform: uppercase; }
+.s-logo:hover { background: rgba(154,114,184,0.04); }
 
 .s-search { padding: 10px 14px; border-bottom: 1px solid var(--border); }
 .s-search input {
   width: 100%; background: var(--bg3);
   border: 1px solid var(--border); border-radius: 6px;
-  color: var(--text); font-family: 'Inter', sans-serif;
+  color: var(--text); font-family: 'Source Sans 3', sans-serif;
   font-size: 0.78rem; padding: 6px 10px; outline: none;
   transition: border-color 0.15s; cursor: text;
 }
@@ -135,7 +153,7 @@ body.hovering #cursor-glow { width: 80px; height: 80px; background: radial-gradi
 .s-subject {
   display: flex; align-items: center; gap: 8px;
   padding: 6px 20px; cursor: pointer;
-  font-size: 0.8rem; font-weight: 500; color: var(--text2);
+  font-size: 0.88rem; font-weight: 500; color: var(--text2);
   user-select: none; transition: color 0.15s;
 }
 .s-subject:hover { color: var(--text); }
@@ -150,7 +168,7 @@ body.hovering #cursor-glow { width: 80px; height: 80px; background: radial-gradi
 .s-topic {
   display: flex; align-items: center; justify-content: space-between;
   padding: 4px 20px 4px 32px;
-  font-size: 0.76rem; color: var(--text2); cursor: pointer;
+  font-size: 0.84rem; color: var(--text2); cursor: pointer;
   transition: color 0.15s, background 0.1s; line-height: 1.4;
 }
 .s-topic:hover { color: var(--text); background: rgba(255,255,255,0.03); }
@@ -179,7 +197,7 @@ body.hovering #cursor-glow { width: 80px; height: 80px; background: radial-gradi
   display: flex; align-items: center; gap: 10px;
 }
 .t-logo-inline {
-  font-family: 'Merriweather', serif;
+  font-family: 'Playfair Display', serif;
   font-size: 0.9rem; font-weight: 700;
   color: var(--accent); display: none;
 }
@@ -200,11 +218,11 @@ body.hovering #cursor-glow { width: 80px; height: 80px; background: radial-gradi
   display: flex; align-items: center; gap: 5px;
   background: none; border: 1px solid var(--border);
   border-radius: 7px; color: var(--text2);
-  padding: 5px 13px; font-family: 'Inter', sans-serif;
+  padding: 5px 13px; font-family: 'Source Sans 3', sans-serif;
   font-size: 0.72rem; cursor: pointer; transition: all 0.2s;
   white-space: nowrap;
 }
-.t-btn:hover { color: var(--accent); border-color: var(--accent); background: rgba(201,151,58,0.06); }
+.t-btn:hover { color: var(--accent); border-color: var(--accent); background: rgba(154,114,184,0.08); }
 .t-btn svg { width: 13px; height: 13px; }
 
 /* ══════════════════════════════
@@ -215,7 +233,7 @@ body.hovering #cursor-glow { width: 80px; height: 80px; background: radial-gradi
 /* Hero */
 .home-hero { margin-bottom: 56px; }
 .home-hero h1 {
-  font-family: 'Merriweather', serif;
+  font-family: 'Playfair Display', serif;
   font-size: 2.6rem; font-weight: 700; line-height: 1.2;
   color: var(--text); margin-bottom: 12px;
 }
@@ -243,7 +261,7 @@ body.hovering #cursor-glow { width: 80px; height: 80px; background: radial-gradi
   overflow: hidden;
   transition: border-color 0.2s;
 }
-.subj-block:hover { border-color: rgba(201,151,58,0.4); }
+.subj-block:hover { border-color: rgba(154,114,184,0.4); }
 
 .subj-block-header {
   display: flex; align-items: center; gap: 14px;
@@ -251,10 +269,11 @@ body.hovering #cursor-glow { width: 80px; height: 80px; background: radial-gradi
   user-select: none;
 }
 .subj-block-icon {
-  width: 36px; height: 36px; border-radius: 8px;
+  width: 40px; height: 40px; border-radius: 10px;
   display: flex; align-items: center; justify-content: center;
   font-size: 1.1rem; flex-shrink: 0;
 }
+.subj-block-icon svg { width: 20px; height: 20px; stroke-width: 1.8; }
 .subj-block-header h3 { font-size: 0.95rem; font-weight: 600; }
 .subj-block-header p { font-size: 0.75rem; color: var(--text2); margin-top: 1px; }
 .subj-block-arr {
@@ -283,7 +302,7 @@ body.hovering #cursor-glow { width: 80px; height: 80px; background: radial-gradi
   white-space: nowrap;
 }
 .subj-topic-chip:hover {
-  background: rgba(201,151,58,0.08);
+  background: rgba(154,114,184,0.08);
   border-color: var(--accent); color: var(--accent);
 }
 
@@ -300,8 +319,8 @@ body.hovering #cursor-glow { width: 80px; height: 80px; background: radial-gradi
 /* Article header */
 .art-eyebrow { font-size: 0.68rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 10px; }
 .art-h1 {
-  font-family: 'Merriweather', serif;
-  font-size: 1.9rem; font-weight: 700; line-height: 1.3;
+  font-family: 'Playfair Display', serif;
+  font-size: 2.1rem; font-weight: 700; line-height: 1.3;
   margin-bottom: 12px; color: var(--text);
 }
 .art-meta { font-size: 0.75rem; color: var(--text2); display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 6px; }
@@ -309,25 +328,25 @@ body.hovering #cursor-glow { width: 80px; height: 80px; background: radial-gradi
 
 /* Headings inside article — GFG style */
 .art h2 {
-  font-family: 'Merriweather', serif;
-  font-size: 1.25rem; font-weight: 700;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.45rem; font-weight: 700;
   color: var(--text); margin: 36px 0 12px;
   padding-bottom: 8px; border-bottom: 1px solid var(--border);
 }
 .art h3 {
-  font-family: 'Inter', sans-serif;
-  font-size: 1rem; font-weight: 600;
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 1.15rem; font-weight: 600;
   color: var(--text); margin: 24px 0 10px;
 }
 .art h4 {
-  font-size: 0.88rem; font-weight: 600;
+  font-size: 0.95rem; font-weight: 600;
   color: var(--text2); margin: 18px 0 8px;
   text-transform: uppercase; letter-spacing: 0.05em;
 }
 
 /* Paragraphs */
 .art p {
-  font-size: 0.9rem; line-height: 1.9;
+  font-size: 1rem; line-height: 1.9;
   color: var(--text); margin-bottom: 14px;
 }
 .art p strong { color: var(--accent); font-weight: 600; }
@@ -336,20 +355,20 @@ body.hovering #cursor-glow { width: 80px; height: 80px; background: radial-gradi
 /* Bullet lists */
 .art ul { margin: 0 0 16px 0; padding: 0; list-style: none; }
 .art ul li {
-  font-size: 0.9rem; line-height: 1.8;
-  color: var(--text); padding: 5px 0 5px 18px;
+  font-size: 1rem; line-height: 1.85;
+  color: var(--text); padding: 6px 0 6px 20px;
   position: relative; border-bottom: 1px solid var(--border);
 }
 .art ul li:last-child { border-bottom: none; }
 .art ul li::before {
   content: '—'; position: absolute; left: 0;
-  color: var(--accent); font-family: 'Merriweather', serif;
+  color: var(--accent); font-family: 'Playfair Display', serif;
 }
 .art ul li strong { color: var(--accent); font-weight: 600; }
 
 /* Tables */
 .art .tbl-wrap { overflow-x: auto; border-radius: 8px; border: 1px solid var(--border); margin-bottom: 20px; }
-.art table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+.art table { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
 .art table thead tr { background: var(--bg3); }
 .art table th {
   padding: 9px 14px; text-align: left;
@@ -372,7 +391,7 @@ body.hovering #cursor-glow { width: 80px; height: 80px; background: radial-gradi
 /* Callout / note box */
 .callout {
   border-left: 3px solid var(--accent);
-  background: rgba(201,151,58,0.05);
+  background: rgba(154,114,184,0.06);
   padding: 12px 16px; border-radius: 0 7px 7px 0;
   margin-bottom: 18px; font-size: 0.88rem; line-height: 1.7;
 }
@@ -397,11 +416,11 @@ body.hovering #cursor-glow { width: 80px; height: 80px; background: radial-gradi
   background: var(--bg3); border: 1px solid var(--border);
   border-radius: 6px; padding: 7px 12px; font-size: 0.8rem;
   cursor: pointer; color: var(--text2); text-align: left;
-  font-family: 'Inter', sans-serif; transition: all 0.15s;
+  font-family: 'Source Sans 3', sans-serif; transition: all 0.15s;
 }
 .mcq-opt:hover { border-color: var(--text2); color: var(--text); }
-.mcq-opt.correct { border-color: var(--green); color: var(--green); background: rgba(78,154,114,0.08); }
-.mcq-opt.wrong { border-color: var(--red); color: var(--red); background: rgba(201,96,96,0.07); text-decoration: line-through; }
+.mcq-opt.correct { border-color: var(--green); color: var(--green); background: rgba(90,170,128,0.08); }
+.mcq-opt.wrong { border-color: var(--red); color: var(--red); background: rgba(192,96,112,0.08); text-decoration: line-through; }
 
 /* Done row */
 .done-row {
@@ -412,7 +431,7 @@ body.hovering #cursor-glow { width: 80px; height: 80px; background: radial-gradi
 .btn-done {
   background: none; border: 1px solid var(--border);
   border-radius: 6px; color: var(--text2);
-  padding: 6px 16px; font-family: 'Inter', sans-serif;
+  padding: 6px 16px; font-family: 'Source Sans 3', sans-serif;
   font-size: 0.76rem; cursor: pointer; transition: all 0.15s;
 }
 .btn-done:hover { border-color: var(--accent); color: var(--accent); }
@@ -444,7 +463,7 @@ body.hovering #cursor-glow { width: 80px; height: 80px; background: radial-gradi
   #sidebar.open { transform: translateX(0); }
   #main { margin-left: 0 !important; }
   #menu-btn { display: flex !important; }
-  .t-logo-inline { display: block !important; }
+  .t-logo-inline { display: flex !important; }
   #article { padding: 24px 20px 60px; }
   #home { padding: 28px 20px 60px; }
   .kv-grid { grid-template-columns: 1fr; }
@@ -462,9 +481,14 @@ body.hovering #cursor-glow { width: 80px; height: 80px; background: radial-gradi
      SIDEBAR
 ══════════════════════════════ -->
 <aside id="sidebar">
-  <div class="s-logo">
-    <h1>Takshashila</h1>
-    <p>Government Exam Notes</p>
+  <div class="s-logo" onclick="goHome()" style="cursor:pointer">
+    <div style="display:flex;align-items:center;gap:10px">
+      <img src="logo.png" alt="Takshashila Logo" style="width:38px;height:38px;object-fit:contain;flex-shrink:0;border-radius:6px"/>
+      <div>
+        <div style="font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:var(--accent);letter-spacing:0.01em">Takshashila</div>
+        <div style="font-size:0.62rem;color:var(--text2);margin-top:2px;letter-spacing:0.05em;text-transform:uppercase">Government Exam Notes</div>
+      </div>
+    </div>
   </div>
 
   <div class="s-search">
@@ -478,7 +502,7 @@ body.hovering #cursor-glow { width: 80px; height: 80px; background: radial-gradi
 
     <!-- History -->
     <div class="s-subject open" onclick="tog(this)">
-      <span class="dot" style="background:#c96060"></span>History<span class="arr">▶</span>
+      <span class="s-icon" style="display:inline-flex;align-items:center"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h12a2 2 0 0 0 2-2v-2H10v2a2 2 0 1 1-4 0V5a2 2 0 1 0-4 0v3h4"/><path d="M19 17V5a2 2 0 0 0-2-2H4"/></svg></span>History<span class="arr">▶</span>
     </div>
     <div class="s-topics">
 
@@ -514,7 +538,7 @@ body.hovering #cursor-glow { width: 80px; height: 80px; background: radial-gradi
 
     <!-- Polity -->
     <div class="s-subject" onclick="tog(this)">
-      <span class="dot" style="background:#4e7fc9"></span>Polity<span class="arr">▶</span>
+      <span class="s-icon" style="display:inline-flex;align-items:center"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="M7 21h10"/><path d="M12 3v18"/><path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"/></svg></span>Polity<span class="arr">▶</span>
     </div>
     <div class="s-topics">
       <div class="s-topic" onclick="show('constitution',this)">Indian Constitution<span class="chk" id="chk-constitution"></span></div>
@@ -523,7 +547,7 @@ body.hovering #cursor-glow { width: 80px; height: 80px; background: radial-gradi
 
     <!-- Geography -->
     <div class="s-subject" onclick="tog(this)">
-      <span class="dot" style="background:#4e9a72"></span>Geography<span class="arr">▶</span>
+      <span class="s-icon" style="display:inline-flex;align-items:center"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg></span>Geography<span class="arr">▶</span>
     </div>
     <div class="s-topics">
       <div class="s-topic" onclick="show('physical-geo',this)">Physical Geography<span class="chk" id="chk-physical-geo"></span></div>
@@ -532,7 +556,7 @@ body.hovering #cursor-glow { width: 80px; height: 80px; background: radial-gradi
 
     <!-- Economics -->
     <div class="s-subject" onclick="tog(this)">
-      <span class="dot" style="background:#c9973a"></span>Economics<span class="arr">▶</span>
+      <span class="s-icon" style="display:inline-flex;align-items:center"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="18" x2="18" y1="20" y2="10"/><line x1="12" x2="12" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="14"/></svg></span>Economics<span class="arr">▶</span>
     </div>
     <div class="s-topics">
       <div class="s-topic" onclick="show('economy',this)">Basics of Economy<span class="chk" id="chk-economy"></span></div>
@@ -541,7 +565,7 @@ body.hovering #cursor-glow { width: 80px; height: 80px; background: radial-gradi
 
     <!-- Science -->
     <div class="s-subject" onclick="tog(this)">
-      <span class="dot" style="background:#9a4ec9"></span>Science<span class="arr">▶</span>
+      <span class="s-icon" style="display:inline-flex;align-items:center"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2v7.527a2 2 0 0 1-.211.896L4.72 20.55a1 1 0 0 0 .9 1.45h12.76a1 1 0 0 0 .9-1.45l-5.069-10.127A2 2 0 0 1 14 9.527V2"/><path d="M8.5 2h7"/><path d="M7 16h10"/></svg></span>Science<span class="arr">▶</span>
     </div>
     <div class="s-topics">
       <div class="s-topic" onclick="show('physics',this)">Physics<span class="chk" id="chk-physics"></span></div>
@@ -551,7 +575,7 @@ body.hovering #cursor-glow { width: 80px; height: 80px; background: radial-gradi
 
     <!-- Static GK -->
     <div class="s-subject" onclick="tog(this)">
-      <span class="dot" style="background:#c96060"></span>Static GK<span class="arr">▶</span>
+      <span class="s-icon" style="display:inline-flex;align-items:center"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/></svg></span>Static GK<span class="arr">▶</span>
     </div>
     <div class="s-topics">
       <div class="s-topic" onclick="show('static-gk',this)">Static GK<span class="chk" id="chk-static-gk"></span></div>
@@ -559,7 +583,7 @@ body.hovering #cursor-glow { width: 80px; height: 80px; background: radial-gradi
 
     <!-- Current Affairs -->
     <div class="s-subject" onclick="tog(this)">
-      <span class="dot" style="background:#7a7a7a"></span>Current Affairs<span class="arr">▶</span>
+      <span class="s-icon" style="display:inline-flex;align-items:center"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8"/><path d="M15 18h-5"/><path d="M10 6h8v4h-8V6Z"/></svg></span>Current Affairs<span class="arr">▶</span>
     </div>
     <div class="s-topics">
       <div class="s-topic" onclick="show('current',this)">Monthly Digest<span class="chk" id="chk-current"></span></div>
@@ -569,7 +593,7 @@ body.hovering #cursor-glow { width: 80px; height: 80px; background: radial-gradi
     <div class="s-label">Maths</div>
 
     <div class="s-subject" onclick="tog(this)">
-      <span class="dot" style="background:#4e9a72"></span>Arithmetic<span class="arr">▶</span>
+      <span class="s-icon" style="display:inline-flex;align-items:center"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect width="16" height="20" x="4" y="2" rx="2"/><line x1="8" x2="16" y1="6" y2="6"/><line x1="16" x2="16" y1="14" y2="18"/><path d="M16 10h.01"/><path d="M12 10h.01"/><path d="M8 10h.01"/><path d="M12 14h.01"/><path d="M8 14h.01"/><path d="M12 18h.01"/><path d="M8 18h.01"/></svg></span>Arithmetic<span class="arr">▶</span>
     </div>
     <div class="s-topics">
       <div class="s-topic" onclick="show('number-system',this)">Number System<span class="chk" id="chk-number-system"></span></div>
@@ -578,7 +602,7 @@ body.hovering #cursor-glow { width: 80px; height: 80px; background: radial-gradi
     </div>
 
     <div class="s-subject" onclick="tog(this)">
-      <span class="dot" style="background:#4e7fc9"></span>Geometry & Algebra<span class="arr">▶</span>
+      <span class="s-icon" style="display:inline-flex;align-items:center"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13.73 4a2 2 0 0 0-3.46 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/></svg></span>Geometry & Algebra<span class="arr">▶</span>
     </div>
     <div class="s-topics">
       <div class="s-topic" onclick="show('geometry',this)">Geometry<span class="chk" id="chk-geometry"></span></div>
@@ -589,7 +613,7 @@ body.hovering #cursor-glow { width: 80px; height: 80px; background: radial-gradi
     <div class="s-label">English</div>
 
     <div class="s-subject" onclick="tog(this)">
-      <span class="dot" style="background:#c9973a"></span>Grammar<span class="arr">▶</span>
+      <span class="s-icon" style="display:inline-flex;align-items:center"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></span>Grammar<span class="arr">▶</span>
     </div>
     <div class="s-topics">
       <div class="s-topic" onclick="show('grammar',this)">Grammar<span class="chk" id="chk-grammar"></span></div>
@@ -600,7 +624,7 @@ body.hovering #cursor-glow { width: 80px; height: 80px; background: radial-gradi
     <div class="s-label">Reasoning</div>
 
     <div class="s-subject" onclick="tog(this)">
-      <span class="dot" style="background:#9a4ec9"></span>Verbal Reasoning<span class="arr">▶</span>
+      <span class="s-icon" style="display:inline-flex;align-items:center"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z"/><path d="M12 5a3 3 0 1 1 5.997.125 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.556 6.588A4 4 0 1 1 12 18Z"/><path d="M15 13a4.5 4.5 0 0 1-3-4 4.5 4.5 0 0 1-3 4"/><path d="M17.599 6.5a3 3 0 0 0 .399-1.375"/><path d="M6.003 5.125A3 3 0 0 0 6.401 6.5"/><path d="M3.477 10.896a4 4 0 0 1 .585-.396"/><path d="M19.938 10.5a4 4 0 0 1 .585.396"/><path d="M6 18a4 4 0 0 1-1.967-.516"/><path d="M19.967 17.484A4 4 0 0 1 18 18"/></svg></span>Verbal Reasoning<span class="arr">▶</span>
     </div>
     <div class="s-topics">
       <div class="s-topic" onclick="show('analogy',this)">Analogy<span class="chk" id="chk-analogy"></span></div>
@@ -608,7 +632,7 @@ body.hovering #cursor-glow { width: 80px; height: 80px; background: radial-gradi
     </div>
 
     <div class="s-subject" onclick="tog(this)">
-      <span class="dot" style="background:#4e9a72"></span>Non-Verbal Reasoning<span class="arr">▶</span>
+      <span class="s-icon" style="display:inline-flex;align-items:center"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8.3 10a.7.7 0 0 1-.626-1.079L11.4 3a.7.7 0 0 1 1.198-.043L16.3 8.9a.7.7 0 0 1-.572 1.1Z"/><rect x="3" y="14" width="7" height="7" rx="1"/><circle cx="17.5" cy="17.5" r="3.5"/></svg></span>Non-Verbal Reasoning<span class="arr">▶</span>
     </div>
     <div class="s-topics">
       <div class="s-topic" onclick="show('figures',this)">Figures & Patterns<span class="chk" id="chk-figures"></span></div>
@@ -622,15 +646,18 @@ body.hovering #cursor-glow { width: 80px; height: 80px; background: radial-gradi
 ══════════════════════════════ -->
 <main id="main">
   <div id="topbar">
-    <button id="menu-btn" onclick="toggleSidebar()">☰</button>
-    <span class="t-logo-inline">Takshashila</span>
-    <div class="t-crumb" id="crumb">Takshashila</div>
+    <button id="menu-btn" onclick="toggleSidebar()"><span style="display:inline-flex;align-items:center"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg></span></button>
+    <span class="t-logo-inline" style="display:none;align-items:center;gap:8px">
+      <img src="logo.png" alt="Takshashila" style="width:26px;height:26px;object-fit:contain;border-radius:4px"/>
+      <span style="font-family:'Playfair Display',serif;font-size:0.95rem;font-weight:700;color:var(--accent)">Takshashila</span>
+    </span>
+    <div class="t-crumb" id="crumb"></div>
     <button class="t-btn" onclick="goHome()">
-      <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7A1 1 0 003 11h1v6a1 1 0 001 1h4v-4h2v4h4a1 1 0 001-1v-6h1a1 1 0 00.707-1.707l-7-7z"/></svg>
+      <span style="display:inline-flex;align-items:center"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span>
       Home
     </button>
     <button class="t-btn" id="themeBtn" onclick="toggleTheme()">
-      <svg id="theme-icon" viewBox="0 0 20 20" fill="currentColor"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"/></svg>
+      <span id="theme-icon" style="display:inline-flex;align-items:center"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9z"/></svg></span>
       <span id="theme-label">Light</span>
     </button>
   </div>
@@ -640,6 +667,7 @@ body.hovering #cursor-glow { width: 80px; height: 80px; background: radial-gradi
 
     <!-- Hero -->
     <div class="home-hero">
+      <img src="logo.png" alt="Takshashila" style="width:88px;height:88px;object-fit:contain;display:block;margin-bottom:24px;border-radius:12px"/>
       <h1>Welcome to <em>Takshashila</em></h1>
       <p>Named after <strong>Takshashila</strong> — the world's first university, established around 700 BCE in ancient India. Scholars from across the world came here to study medicine, philosophy, grammar, mathematics, and statecraft. This portal carries that spirit — a place to build knowledge, topic by topic, from your own sources.</p>
     </div>
@@ -647,9 +675,9 @@ body.hovering #cursor-glow { width: 80px; height: 80px; background: radial-gradi
     <!-- GS / GA -->
     <div class="home-section-label">GS / GA</div>
 
-    <div class="subj-block open">
+    <div class="subj-block">
       <div class="subj-block-header" onclick="togBlock(this.parentElement)">
-        <div class="subj-block-icon" style="background:rgba(201,96,96,0.1)">🏛️</div>
+        <div class="subj-block-icon" style="background:rgba(154,114,184,0.12);color:#9a72b8"><span style="display:inline-flex;align-items:center"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h12a2 2 0 0 0 2-2v-2H10v2a2 2 0 1 1-4 0V5a2 2 0 1 0-4 0v3h4"/><path d="M19 17V5a2 2 0 0 0-2-2H4"/></svg></span></div>
         <div><h3>History</h3><p>Ancient · Medieval · Modern India</p></div>
         <span class="subj-block-arr">▶</span>
       </div>
@@ -681,7 +709,7 @@ body.hovering #cursor-glow { width: 80px; height: 80px; background: radial-gradi
 
     <div class="subj-block">
       <div class="subj-block-header" onclick="togBlock(this.parentElement)">
-        <div class="subj-block-icon" style="background:rgba(78,127,201,0.1)">⚖️</div>
+        <div class="subj-block-icon" style="background:rgba(112,144,208,0.12);color:#7090d0"><span style="display:inline-flex;align-items:center"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="M7 21h10"/><path d="M12 3v18"/><path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"/></svg></span></div>
         <div><h3>Polity</h3><p>Constitution · Parliament</p></div>
         <span class="subj-block-arr">▶</span>
       </div>
@@ -695,7 +723,7 @@ body.hovering #cursor-glow { width: 80px; height: 80px; background: radial-gradi
 
     <div class="subj-block">
       <div class="subj-block-header" onclick="togBlock(this.parentElement)">
-        <div class="subj-block-icon" style="background:rgba(78,154,114,0.1)">🌍</div>
+        <div class="subj-block-icon" style="background:rgba(90,170,128,0.12);color:#5aaa80"><span style="display:inline-flex;align-items:center"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg></span></div>
         <div><h3>Geography</h3><p>Physical · Indian Geography</p></div>
         <span class="subj-block-arr">▶</span>
       </div>
@@ -709,7 +737,7 @@ body.hovering #cursor-glow { width: 80px; height: 80px; background: radial-gradi
 
     <div class="subj-block">
       <div class="subj-block-header" onclick="togBlock(this.parentElement)">
-        <div class="subj-block-icon" style="background:rgba(201,151,58,0.1)">💰</div>
+        <div class="subj-block-icon" style="background:rgba(180,140,100,0.12);color:#b48c64"><span style="display:inline-flex;align-items:center"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="18" x2="18" y1="20" y2="10"/><line x1="12" x2="12" y1="20" y2="4"/><line x1="6" x2="6" y1="20" y2="14"/></svg></span></div>
         <div><h3>Economics</h3><p>Economy · Budget & Planning</p></div>
         <span class="subj-block-arr">▶</span>
       </div>
@@ -723,7 +751,7 @@ body.hovering #cursor-glow { width: 80px; height: 80px; background: radial-gradi
 
     <div class="subj-block">
       <div class="subj-block-header" onclick="togBlock(this.parentElement)">
-        <div class="subj-block-icon" style="background:rgba(154,78,201,0.1)">⚗️</div>
+        <div class="subj-block-icon" style="background:rgba(154,114,184,0.12);color:#9a72b8"><span style="display:inline-flex;align-items:center"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2v7.527a2 2 0 0 1-.211.896L4.72 20.55a1 1 0 0 0 .9 1.45h12.76a1 1 0 0 0 .9-1.45l-5.069-10.127A2 2 0 0 1 14 9.527V2"/><path d="M8.5 2h7"/><path d="M7 16h10"/></svg></span></div>
         <div><h3>Science</h3><p>Physics · Chemistry · Biology</p></div>
         <span class="subj-block-arr">▶</span>
       </div>
@@ -738,7 +766,7 @@ body.hovering #cursor-glow { width: 80px; height: 80px; background: radial-gradi
 
     <div class="subj-block">
       <div class="subj-block-header" onclick="togBlock(this.parentElement)">
-        <div class="subj-block-icon" style="background:rgba(201,96,96,0.1)">📌</div>
+        <div class="subj-block-icon" style="background:rgba(192,96,112,0.12);color:#c06070"><span style="display:inline-flex;align-items:center"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/></svg></span></div>
         <div><h3>Static GK</h3><p>Awards · Records · Firsts</p></div>
         <span class="subj-block-arr">▶</span>
       </div>
@@ -751,7 +779,7 @@ body.hovering #cursor-glow { width: 80px; height: 80px; background: radial-gradi
 
     <div class="subj-block">
       <div class="subj-block-header" onclick="togBlock(this.parentElement)">
-        <div class="subj-block-icon" style="background:rgba(120,120,120,0.1)">📰</div>
+        <div class="subj-block-icon" style="background:rgba(120,108,140,0.12);color:#786c8c"><span style="display:inline-flex;align-items:center"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8"/><path d="M15 18h-5"/><path d="M10 6h8v4h-8V6Z"/></svg></span></div>
         <div><h3>Current Affairs</h3><p>Monthly digest</p></div>
         <span class="subj-block-arr">▶</span>
       </div>
@@ -767,7 +795,7 @@ body.hovering #cursor-glow { width: 80px; height: 80px; background: radial-gradi
 
     <div class="subj-block">
       <div class="subj-block-header" onclick="togBlock(this.parentElement)">
-        <div class="subj-block-icon" style="background:rgba(78,154,114,0.1)">🔢</div>
+        <div class="subj-block-icon" style="background:rgba(90,170,128,0.12);color:#5aaa80"><span style="display:inline-flex;align-items:center"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect width="16" height="20" x="4" y="2" rx="2"/><line x1="8" x2="16" y1="6" y2="6"/><line x1="16" x2="16" y1="14" y2="18"/><path d="M16 10h.01"/><path d="M12 10h.01"/><path d="M8 10h.01"/><path d="M12 14h.01"/><path d="M8 14h.01"/><path d="M12 18h.01"/><path d="M8 18h.01"/></svg></span></div>
         <div><h3>Maths</h3><p>Arithmetic · Geometry · Algebra</p></div>
         <span class="subj-block-arr">▶</span>
       </div>
@@ -795,7 +823,7 @@ body.hovering #cursor-glow { width: 80px; height: 80px; background: radial-gradi
 
     <div class="subj-block">
       <div class="subj-block-header" onclick="togBlock(this.parentElement)">
-        <div class="subj-block-icon" style="background:rgba(201,151,58,0.1)">📝</div>
+        <div class="subj-block-icon" style="background:rgba(180,140,100,0.12);color:#b48c64"><span style="display:inline-flex;align-items:center"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg></span></div>
         <div><h3>English</h3><p>Grammar · Vocabulary</p></div>
         <span class="subj-block-arr">▶</span>
       </div>
@@ -812,7 +840,7 @@ body.hovering #cursor-glow { width: 80px; height: 80px; background: radial-gradi
 
     <div class="subj-block">
       <div class="subj-block-header" onclick="togBlock(this.parentElement)">
-        <div class="subj-block-icon" style="background:rgba(154,78,201,0.1)">🧩</div>
+        <div class="subj-block-icon" style="background:rgba(154,114,184,0.12);color:#9a72b8"><span style="display:inline-flex;align-items:center"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z"/><path d="M12 5a3 3 0 1 1 5.997.125 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.556 6.588A4 4 0 1 1 12 18Z"/><path d="M15 13a4.5 4.5 0 0 1-3-4 4.5 4.5 0 0 1-3 4"/><path d="M17.599 6.5a3 3 0 0 0 .399-1.375"/><path d="M6.003 5.125A3 3 0 0 0 6.401 6.5"/><path d="M3.477 10.896a4 4 0 0 1 .585-.396"/><path d="M19.938 10.5a4 4 0 0 1 .585.396"/><path d="M6 18a4 4 0 0 1-1.967-.516"/><path d="M19.967 17.484A4 4 0 0 1 18 18"/></svg></span></div>
         <div><h3>Reasoning</h3><p>Verbal · Non-Verbal</p></div>
         <span class="subj-block-arr">▶</span>
       </div>
@@ -864,7 +892,7 @@ function blank(title, subject, color, desc) {
 const topics = {
 
 /* ── ANCIENT INDIA (placeholder) ── */
-'ancient-india': blank('Ancient India','Ancient History','#c96060','IVC, Vedic Age, Mahajanapadas, Mauryan & Gupta Empires.'),
+'ancient-india': blank('Ancient India','Ancient History','#c06070','IVC, Vedic Age, Mahajanapadas, Mauryan & Gupta Empires.'),
 
 /* ══════════════════════════════════════════════
    ARAB & TURKISH INVASIONS — FULL NOTES
@@ -873,7 +901,7 @@ const topics = {
 'arab-turkish': {
   title: 'Arab & Turkish Invasions',
   subject: 'Medieval History',
-  color: '#c9973a',
+  color: '#9a72b8',
   sources: ['SG Sir — Medieval History Class 1 PDF'],
   updated: 'March 2026',
   html: `
@@ -1167,50 +1195,50 @@ const topics = {
 
 
 /* ── MEDIEVAL INDIA ── */
-'delhi-sultanate': blank('Delhi Sultanate','Medieval History','#c9973a','Slave, Khilji, Tughlaq, Sayyid & Lodi dynasties.'),
-'mughal':          blank('Mughal Empire','Medieval History','#c9973a','Babur to Aurangzeb — administration, culture & decline.'),
-'bhakti-sufi':     blank('Bhakti & Sufi Movement','Medieval History','#c9973a','Saints, poets, and the movement for social reform.'),
-'vijayanagar':     blank('Vijayanagar & Bahamani Empire','Medieval History','#c9973a','Vijayanagar Empire, Bahamani Kingdom, regional dynasties.'),
+'delhi-sultanate': blank('Delhi Sultanate','Medieval History','#9a72b8','Slave, Khilji, Tughlaq, Sayyid & Lodi dynasties.'),
+'mughal':          blank('Mughal Empire','Medieval History','#9a72b8','Babur to Aurangzeb — administration, culture & decline.'),
+'bhakti-sufi':     blank('Bhakti & Sufi Movement','Medieval History','#9a72b8','Saints, poets, and the movement for social reform.'),
+'vijayanagar':     blank('Vijayanagar & Bahamani Empire','Medieval History','#9a72b8','Vijayanagar Empire, Bahamani Kingdom, regional dynasties.'),
 
 /* ── MODERN INDIA ── */
-'modern-india':    blank('Modern India','Modern History','#4e9a72','1857 Revolt, Indian National Congress, Freedom Struggle, Partition.'),
+'modern-india':    blank('Modern India','Modern History','#5aaa80','1857 Revolt, Indian National Congress, Freedom Struggle, Partition.'),
 
 /* ── POLITY ── */
-'constitution': blank('Indian Constitution','Polity','#4e7fc9','Preamble, Fundamental Rights, DPSPs, Amendments, Federal structure.'),
-'parliament':   blank('Parliament','Polity','#4e7fc9','Lok Sabha, Rajya Sabha, Legislative process, Sessions.'),
+'constitution': blank('Indian Constitution','Polity','#7090d0','Preamble, Fundamental Rights, DPSPs, Amendments, Federal structure.'),
+'parliament':   blank('Parliament','Polity','#7090d0','Lok Sabha, Rajya Sabha, Legislative process, Sessions.'),
 
 /* ── GEOGRAPHY ── */
-'physical-geo': blank('Physical Geography','Geography','#4e9a72','Landforms, rivers, climate, soil, natural vegetation, ocean currents.'),
-'indian-geo':   blank('Indian Geography','Geography','#4e9a72','Physiographic divisions, rivers, states, resources, agriculture.'),
+'physical-geo': blank('Physical Geography','Geography','#5aaa80','Landforms, rivers, climate, soil, natural vegetation, ocean currents.'),
+'indian-geo':   blank('Indian Geography','Geography','#5aaa80','Physiographic divisions, rivers, states, resources, agriculture.'),
 
 /* ── ECONOMICS ── */
-'economy': blank('Basics of Economy','Economics','#c9973a','GDP, GNP, Inflation, Monetary policy, Five-year plans.'),
-'budget':  blank('Budget & Planning','Economics','#c9973a','Union Budget, Economic planning, NITI Aayog, fiscal policy.'),
+'economy': blank('Basics of Economy','Economics','#9a72b8','GDP, GNP, Inflation, Monetary policy, Five-year plans.'),
+'budget':  blank('Budget & Planning','Economics','#9a72b8','Union Budget, Economic planning, NITI Aayog, fiscal policy.'),
 
 /* ── SCIENCE ── */
-'physics':   blank('Physics','Science','#9a4ec9','Laws of Motion, Thermodynamics, Optics, Electricity, Sound.'),
-'chemistry': blank('Chemistry','Science','#9a4ec9','Periodic table, Acids & Bases, Metals, Chemical reactions.'),
-'biology':   blank('Biology','Science','#9a4ec9','Cell theory, Human body systems, Genetics, Diseases.'),
+'physics':   blank('Physics','Science','#9a72b8','Laws of Motion, Thermodynamics, Optics, Electricity, Sound.'),
+'chemistry': blank('Chemistry','Science','#9a72b8','Periodic table, Acids & Bases, Metals, Chemical reactions.'),
+'biology':   blank('Biology','Science','#9a72b8','Cell theory, Human body systems, Genetics, Diseases.'),
 
 /* ── STATIC GK & CURRENT AFFAIRS ── */
-'static-gk': blank('Static GK','Static GK','#c96060','Important places, persons, awards, books, first in India & world.'),
-'current':   blank('Monthly Digest','Current Affairs','#7a7a7a','National, International, Awards, Sports, Science & Technology, Schemes.'),
+'static-gk': blank('Static GK','Static GK','#c06070','Important places, persons, awards, books, first in India & world.'),
+'current':   blank('Monthly Digest','Current Affairs','#786c8c','National, International, Awards, Sports, Science & Technology, Schemes.'),
 
 /* ── MATHS ── */
-'number-system': blank('Number System','Maths','#4e9a72','Types of numbers, divisibility rules, HCF, LCM, remainders.'),
-'percentage':    blank('Percentage','Maths','#4e9a72','Percentage basics, increase/decrease, applications.'),
-'profit-loss':   blank('Profit & Loss','Maths','#4e9a72','Cost price, selling price, profit %, loss %, discount.'),
-'geometry':      blank('Geometry','Maths','#4e7fc9','Lines, angles, triangles, circles, mensuration.'),
-'algebra':       blank('Algebra','Maths','#4e7fc9','Linear equations, quadratic equations, identities.'),
+'number-system': blank('Number System','Maths','#5aaa80','Types of numbers, divisibility rules, HCF, LCM, remainders.'),
+'percentage':    blank('Percentage','Maths','#5aaa80','Percentage basics, increase/decrease, applications.'),
+'profit-loss':   blank('Profit & Loss','Maths','#5aaa80','Cost price, selling price, profit %, loss %, discount.'),
+'geometry':      blank('Geometry','Maths','#7090d0','Lines, angles, triangles, circles, mensuration.'),
+'algebra':       blank('Algebra','Maths','#7090d0','Linear equations, quadratic equations, identities.'),
 
 /* ── ENGLISH ── */
-'grammar': blank('Grammar','English','#c9973a','Tenses, articles, prepositions, active-passive, direct-indirect.'),
-'vocab':   blank('Vocabulary','English','#c9973a','Synonyms, antonyms, one-word substitution, idioms & phrases.'),
+'grammar': blank('Grammar','English','#9a72b8','Tenses, articles, prepositions, active-passive, direct-indirect.'),
+'vocab':   blank('Vocabulary','English','#9a72b8','Synonyms, antonyms, one-word substitution, idioms & phrases.'),
 
 /* ── REASONING ── */
-'analogy': blank('Analogy','Reasoning','#9a4ec9','Word analogy, number analogy, letter analogy.'),
-'series':  blank('Series','Reasoning','#9a4ec9','Number series, letter series, mixed series.'),
-'figures': blank('Figures & Patterns','Reasoning','#4e9a72','Mirror image, paper cutting, embedded figures, pattern completion.'),
+'analogy': blank('Analogy','Reasoning','#9a72b8','Word analogy, number analogy, letter analogy.'),
+'series':  blank('Series','Reasoning','#9a72b8','Number series, letter series, mixed series.'),
+'figures': blank('Figures & Patterns','Reasoning','#5aaa80','Mirror image, paper cutting, embedded figures, pattern completion.'),
 };
 
 /* ══════════════════════════════
@@ -1255,12 +1283,13 @@ function show(id, navEl) {
 
   document.getElementById('crumb').innerHTML = `${t.subject} &rsaquo; <b>${t.title}</b>`;
   window.scrollTo(0, 0);
+  
 }
 
 function goHome() {
   document.getElementById('home').style.display = 'block';
   document.getElementById('notespage').style.display = 'none';
-  document.getElementById('crumb').textContent = 'Takshashila';
+  document.getElementById('crumb').innerHTML = '';
   document.querySelectorAll('.s-topic').forEach(e => e.classList.remove('active'));
 }
 
@@ -1332,12 +1361,12 @@ function closeSidebar() {
 ══════════════════════════════ */
 function toggleTheme() {
   const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-  document.documentElement.setAttribute('data-theme', isDark ? 'light' : 'dark');
+  const newTheme = isDark ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', newTheme);
   document.getElementById('theme-label').textContent = isDark ? 'Dark' : 'Light';
-  document.getElementById('theme-icon').innerHTML = isDark
-    ? '<path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd"/>'
-    : '<path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"/>';
-  localStorage.setItem('tak_theme', isDark ? 'light' : 'dark');
+  document.getElementById('theme-icon').innerHTML = isDark ? '<svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>' : '<svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9z"/></svg>';
+  
+  localStorage.setItem('tak_theme', newTheme);
 }
 
 /* ══════════════════════════════
@@ -1363,9 +1392,7 @@ const savedTheme = localStorage.getItem('tak_theme');
 if (savedTheme) {
   document.documentElement.setAttribute('data-theme', savedTheme);
   document.getElementById('theme-label').textContent = savedTheme === 'light' ? 'Dark' : 'Light';
-  if (savedTheme === 'light') {
-    document.getElementById('theme-icon').innerHTML = '<path fill-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clip-rule="evenodd"/>';
-  }
+  document.getElementById('theme-icon').innerHTML = savedTheme === 'light' ? '<svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>' : '<svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9z"/></svg>';
 }
 done.forEach(id => {
   const el = document.getElementById('chk-' + id);
@@ -1373,6 +1400,8 @@ done.forEach(id => {
   const navEl = document.querySelector(`.s-topic[onclick*="'${id}'"]`);
   if (navEl) navEl.classList.add('done');
 });
+
 </script>
+
 </body>
 </html>
