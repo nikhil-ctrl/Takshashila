@@ -228,10 +228,23 @@ body.hovering #cursor-glow { width: 80px; height: 80px; background: radial-gradi
 /* ══════════════════════════════
    HOME PAGE
 ══════════════════════════════ */
-#home { padding: 52px 52px 100px; max-width: 860px; }
+#home { padding: 52px 52px 100px; max-width: 1000px; }
 
 /* Hero */
 .home-hero { margin-bottom: 56px; }
+.hero-inner {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+.hero-text { flex: 1; min-width: 0; }
+.hero-illustration {
+  flex-shrink: 0;
+  width: 42%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 .home-hero h1 {
   font-family: 'Playfair Display', serif;
   font-size: 2.6rem; font-weight: 700; line-height: 1.2;
@@ -469,6 +482,8 @@ body.hovering #cursor-glow { width: 80px; height: 80px; background: radial-gradi
   .kv-grid { grid-template-columns: 1fr; }
   .mcq-opts { grid-template-columns: 1fr; }
   .home-hero h1 { font-size: 1.8rem; }
+  .hero-inner { flex-direction: column; }
+  .hero-illustration { width: 100%; }
 }
 </style>
 </head>
@@ -501,7 +516,7 @@ body.hovering #cursor-glow { width: 80px; height: 80px; background: radial-gradi
     <div class="s-label">GS / GA</div>
 
     <!-- History -->
-    <div class="s-subject open" onclick="tog(this)">
+    <div class="s-subject" onclick="tog(this)">
       <span class="s-icon" style="display:inline-flex;align-items:center"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h12a2 2 0 0 0 2-2v-2H10v2a2 2 0 1 1-4 0V5a2 2 0 1 0-4 0v3h4"/><path d="M19 17V5a2 2 0 0 0-2-2H4"/></svg></span>History<span class="arr">▶</span>
     </div>
     <div class="s-topics">
@@ -515,7 +530,7 @@ body.hovering #cursor-glow { width: 80px; height: 80px; background: radial-gradi
       </div>
 
       <!-- Medieval India -->
-      <div class="s-subject s-subject-sub open" onclick="tog(this)" style="padding-left:32px">
+      <div class="s-subject s-subject-sub" onclick="tog(this)" style="padding-left:32px">
         <span style="font-size:0.72rem;color:var(--text2)">Medieval India</span><span class="arr">▶</span>
       </div>
       <div class="s-topics">
@@ -667,11 +682,20 @@ body.hovering #cursor-glow { width: 80px; height: 80px; background: radial-gradi
 
     <!-- Hero -->
     <div class="home-hero">
-      <div style="display:flex;align-items:center;gap:20px;margin-bottom:16px">
-        <img src="logo.png" alt="Takshashila" style="width:72px;height:72px;object-fit:contain;flex-shrink:0;mix-blend-mode:lighten"/>
-        <h1 style="margin-bottom:0">Welcome to <em>Takshashila</em></h1>
+      <div class="hero-inner">
+        <!-- Left: text -->
+        <div class="hero-text">
+          <div style="display:flex;align-items:center;gap:16px;margin-bottom:18px">
+            <img src="logo.png" alt="Takshashila" style="width:60px;height:60px;object-fit:contain;flex-shrink:0;mix-blend-mode:lighten"/>
+            <h1 style="margin-bottom:0">Welcome to <em>Takshashila</em></h1>
+          </div>
+          <p>Named after <strong>Takshashila</strong> — the world's first university, established around 700 BCE in ancient India. Scholars from across the world came here to study medicine, philosophy, grammar, mathematics, and statecraft. This portal carries that spirit — a place to build knowledge, topic by topic, from your own sources.</p>
+        </div>
+        <!-- Right: illustration -->
+        <div class="hero-illustration">
+          <img src="hero.svg" alt="Study illustration" style="width:100%;max-width:420px;display:block;mix-blend-mode:lighten"/>
+        </div>
       </div>
-      <p>Named after <strong>Takshashila</strong> — the world's first university, established around 700 BCE in ancient India. Scholars from across the world came here to study medicine, philosophy, grammar, mathematics, and statecraft. This portal carries that spirit — a place to build knowledge, topic by topic, from your own sources.</p>
     </div>
 
     <!-- GS / GA -->
