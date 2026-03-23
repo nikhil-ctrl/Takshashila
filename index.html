@@ -49,7 +49,7 @@ body {
   display: flex;
   min-height: 100vh;
   line-height: 1.7;
-  cursor: none;
+  cursor: auto;
 }
 
 /* ── LUCIDE ICONS ── */
@@ -74,40 +74,6 @@ body {
 ::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
-
-/* ── CURSOR GLOW ── */
-#cursor {
-  position: fixed;
-  width: 10px; height: 10px;
-  background: var(--accent);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 9999;
-  transform: translate(-50%, -50%);
-  transition: transform 0.1s, width 0.2s, height 0.2s, opacity 0.2s;
-  mix-blend-mode: screen;
-}
-[data-theme="light"] #cursor {
-  background: #0F172A;
-  mix-blend-mode: normal;
-}
-#cursor-glow {
-  position: fixed;
-  width: 40px; height: 40px;
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 9998;
-  transform: translate(-50%, -50%);
-  background: radial-gradient(circle, rgba(154,114,184,0.18) 0%, transparent 70%);
-  transition: transform 0.15s ease, width 0.25s, height 0.25s, opacity 0.25s;
-}
-[data-theme="light"] #cursor-glow {
-  background: radial-gradient(circle, rgba(15,23,42,0.1) 0%, transparent 70%);
-}
-body.hovering #cursor { width: 16px; height: 16px; background: var(--accent); opacity: 1; }
-[data-theme="light"] body.hovering #cursor { background: #1E3A8A; }
-body.hovering #cursor-glow { width: 80px; height: 80px; background: radial-gradient(circle, rgba(154,114,184,0.28) 0%, transparent 70%); }
-[data-theme="light"] body.hovering #cursor-glow { background: radial-gradient(circle, rgba(30,58,138,0.12) 0%, transparent 70%); }
 
 /* ══════════════════════════════
    SIDEBAR
@@ -663,7 +629,7 @@ body.hovering #cursor-glow { width: 80px; height: 80px; background: radial-gradi
 /* ── SAAS HERO ── */
 .saas-hero {
   display: flex; align-items: center; gap: 72px;
-  padding: 100px 0 88px; position: relative; overflow: hidden;
+  padding: 64px 0 80px; position: relative; overflow: hidden;
 }
 .saas-hero-bg-glow {
   position: absolute; width: 560px; height: 560px; border-radius: 50%;
@@ -817,8 +783,7 @@ body.hovering #cursor-glow { width: 80px; height: 80px; background: radial-gradi
 }
 @media (max-width: 768px) {
   body { cursor: auto; }
-  #cursor, #cursor-glow { display: none; }
-  #sidebar { transform: translateX(-100%); }
+  #cursor,   #sidebar { transform: translateX(-100%); }
   #sidebar.open { transform: translateX(0); }
   #main { margin-left: 0 !important; }
   #menu-btn { display: flex !important; }
@@ -836,8 +801,6 @@ body.hovering #cursor-glow { width: 80px; height: 80px; background: radial-gradi
 </style>
 </head>
 <body>
-<div id="cursor"></div>
-<div id="cursor-glow"></div>
 <div id="sidebar-overlay" onclick="closeSidebar()"></div>
 
 <!-- ══════════════════════════════
@@ -1822,18 +1785,6 @@ function toggleTheme() {
 /* ══════════════════════════════
    CURSOR GLOW
 ══════════════════════════════ */
-const cur = document.getElementById('cursor');
-const curG = document.getElementById('cursor-glow');
-document.addEventListener('mousemove', e => {
-  cur.style.left = e.clientX + 'px';
-  cur.style.top = e.clientY + 'px';
-  curG.style.left = e.clientX + 'px';
-  curG.style.top = e.clientY + 'px';
-});
-document.addEventListener('mouseover', e => {
-  const el = e.target.closest('button, a, .s-subject, .s-topic, .subj-block-header, .subj-topic-chip, .mcq-opt, .subj-card, [onclick]');
-  document.body.classList.toggle('hovering', !!el);
-});
 
 /* ══════════════════════════════
    INIT
