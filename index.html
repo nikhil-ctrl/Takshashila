@@ -435,7 +435,7 @@ body {
 @keyframes animStar { from { transform: translateY(0); } to { transform: translateY(-2000px); } }
 
 /* Hero */
-.home-hero { margin-bottom: 56px; max-width: 1200px; }
+.home-hero { margin-bottom: 40px; max-width: 1200px; }
 .hero-inner {
   display: flex;
   align-items: center;
@@ -731,22 +731,24 @@ body {
   50%       { transform: translateY(-8px); }
 }
 .saas-hero {
-  display: flex; align-items: center; gap: 32px;
-  padding: 36px 0 72px; position: relative; overflow: hidden;
+  display: flex; align-items: center; gap: 40px;
+  padding: 48px 0 64px; position: relative;
+  width: 100%; height: auto;
 }
 .saas-hero-bg-glow {
-  position: absolute; width: 380px; height: 380px; border-radius: 50%;
+  position: absolute; width: 360px; height: 360px; border-radius: 50%;
   background: radial-gradient(circle, rgba(99,102,241,0.04) 0%, rgba(30,58,138,0.03) 50%, transparent 72%);
-  right: 40px; top: -60px; pointer-events: none;
+  right: 40px; top: -40px; pointer-events: none;
 }
 .saas-hero-bg-glow2 {
-  position: absolute; width: 320px; height: 320px; border-radius: 50%;
-  background: radial-gradient(circle, rgba(30,58,138,0.035) 0%, transparent 70%);
-  left: -40px; top: 20px; pointer-events: none;
+  position: absolute; width: 280px; height: 280px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(30,58,138,0.03) 0%, transparent 70%);
+  left: -40px; top: 10px; pointer-events: none;
 }
 .saas-hero-left {
   flex: 1; min-width: 0; position: relative; z-index: 1; max-width: 440px;
   animation: heroFadeUp 0.7s ease both;
+  align-self: center;
 }
 .saas-badge {
   display: inline-flex; align-items: center; gap: 7px;
@@ -849,26 +851,27 @@ body {
 }
 .saas-stat-divider { width: 1px; height: 28px; background: rgba(148,163,184,0.2); flex-shrink: 0; }
 .saas-hero-right {
-  flex: 0 0 480px; position: relative; z-index: 1;
-  display: flex; align-items: center; justify-content: flex-start;
-  margin-right: -36px; margin-top: -40px;
+  flex: 0 0 460px; position: relative; z-index: 1;
+  display: flex; align-items: center; justify-content: center;
+  align-self: center;
   animation: heroFadeUp 0.8s 0.15s ease both;
 }
 .saas-hero-right svg {
-  width: 115%; max-width: 115%;
+  width: 100%; max-width: 100%;
   animation: illustFloat 6s ease-in-out infinite;
   position: relative; z-index: 1;
+  display: block;
 }
 .saas-illus-glow {
   position: absolute; width: 220px; height: 220px; border-radius: 50%;
   background: radial-gradient(circle, rgba(99,102,241,0.09) 0%, rgba(34,211,238,0.04) 50%, transparent 68%);
-  top: 46%; left: 42%; transform: translate(-50%, -50%); z-index: 0;
+  top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 0;
 }
 @media (max-width: 960px) {
-  .saas-hero { flex-direction: column; gap: 48px; padding: 56px 0; }
-  .saas-hero-left { max-width: 100%; }
-  .saas-hero-right { flex: none; width: 100%; margin-right: 0; margin-top: 0; }
-  .saas-hero-right svg { width: 100%; }
+  .saas-hero { flex-direction: column; gap: 40px; padding: 48px 0 56px; }
+  .saas-hero-left { max-width: 100%; align-self: auto; }
+  .saas-hero-right { flex: none; width: 100%; align-self: auto; }
+  .saas-hero-right svg { width: 90%; margin: 0 auto; }
   .saas-h1 { font-size: 32px; max-width: 100%; }
 }
 
