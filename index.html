@@ -662,16 +662,16 @@ body {
 
 /* ── SAAS HERO ── */
 .saas-hero {
-  display: flex; align-items: center; gap: 72px;
+  display: flex; align-items: center; gap: 48px;
   padding: 36px 0 72px; position: relative; overflow: hidden;
 }
 .saas-hero-bg-glow {
-  position: absolute; width: 560px; height: 560px; border-radius: 50%;
+  position: absolute; width: 420px; height: 420px; border-radius: 50%;
   background: radial-gradient(circle, rgba(34,211,238,0.05) 0%, rgba(99,102,241,0.04) 40%, transparent 70%);
-  right: -80px; top: -120px; pointer-events: none;
+  right: 20px; top: -80px; pointer-events: none;
 }
 .saas-hero-bg-glow2 {
-  position: absolute; width: 320px; height: 320px; border-radius: 50%;
+  position: absolute; width: 280px; height: 280px; border-radius: 50%;
   background: radial-gradient(circle, rgba(30,58,138,0.05) 0%, transparent 70%);
   left: -60px; bottom: -60px; pointer-events: none;
 }
@@ -730,16 +730,26 @@ body {
 [data-theme="dark"] .saas-stat-num { color: #F1F5F9; }
 .saas-stat-label { font-size: 11px; color: #94A3B8; font-weight: 500; letter-spacing: 0.03em; text-transform: uppercase; }
 .saas-stat-divider { width: 1px; height: 36px; background: rgba(148,163,184,0.22); flex-shrink: 0; }
-.saas-hero-right { flex: 0 0 480px; position: relative; z-index: 1; }
+.saas-hero-right {
+  flex: 0 0 500px;
+  position: relative; z-index: 1;
+  display: flex; align-items: center; justify-content: flex-start;
+  margin-right: -20px;
+}
 .saas-illus-glow {
-  position: absolute; width: 440px; height: 440px; border-radius: 50%;
-  background: radial-gradient(circle, rgba(99,102,241,0.14) 0%, rgba(34,211,238,0.07) 45%, transparent 70%);
-  top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 0;
+  position: absolute; width: 340px; height: 340px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(99,102,241,0.13) 0%, rgba(34,211,238,0.06) 50%, transparent 70%);
+  top: 50%; left: 45%; transform: translate(-50%, -50%); z-index: 0;
+}
+.saas-hero-right svg {
+  width: 108%;
+  max-width: 108%;
 }
 @media (max-width: 960px) {
   .saas-hero { flex-direction: column; gap: 48px; padding: 56px 0; }
   .saas-hero-left { max-width: 100%; }
-  .saas-hero-right { flex: none; width: 100%; }
+  .saas-hero-right { flex: none; width: 100%; margin-right: 0; }
+  .saas-hero-right svg { width: 100%; }
   .saas-h1 { font-size: 32px; max-width: 100%; }
 }
 
