@@ -4,7 +4,7 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Takshashila — Government Exam Notes</title>
-<link rel="icon" type="image/png" href="logo.png"/>
+
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Source+Sans+3:wght@300;400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet"/>
 <style>
 /* ── VARIABLES — Aged Manuscript Palette ── */
@@ -392,14 +392,6 @@ body.hovering #cursor-glow { width: 80px; height: 80px; background: radial-gradi
 [data-theme="light"] .hero-illustration img {
   filter: hue-rotate(240deg) saturate(0.9) brightness(0.95);
 }
-[data-theme="dark"] .s-logo img,
-[data-theme="dark"] .t-logo-inline img {
-  filter: brightness(1.1);
-}
-[data-theme="light"] .s-logo img,
-[data-theme="light"] .t-logo-inline img {
-  filter: invert(1) hue-rotate(180deg) brightness(0.8);
-}
 .home-hero h1 {
   font-family: 'Playfair Display', serif;
   font-size: 2.6rem; font-weight: 700; line-height: 1.2;
@@ -655,7 +647,110 @@ body.hovering #cursor-glow { width: 80px; height: 80px; background: radial-gradi
 @keyframes star-twinkle { 0%{transform:scale(1)} 40%{transform:scale(1.2)} 80%{transform:scale(0.8)} 100%{transform:scale(1)} }
 @keyframes rotate-center { 0%{transform:translateX(26px) rotate(0)} 100%{transform:translateX(26px) rotate(360deg)} }
 
-/* ── SUBJECT CARDS (Uiverse inspired) ── */
+/* ── SAAS HERO ── */
+.saas-hero {
+  display: flex;
+  align-items: center;
+  gap: 64px;
+  padding: 80px 0 72px;
+  position: relative;
+  overflow: hidden;
+}
+.saas-hero-bg-glow {
+  position: absolute;
+  width: 500px; height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(34,211,238,0.06) 0%, rgba(99,102,241,0.04) 40%, transparent 70%);
+  right: -60px; top: -80px;
+  pointer-events: none;
+}
+.saas-hero-bg-glow2 {
+  position: absolute;
+  width: 280px; height: 280px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(30,58,138,0.07) 0%, transparent 70%);
+  left: -40px; bottom: -40px;
+  pointer-events: none;
+}
+.saas-hero-left { flex: 1; min-width: 0; position: relative; z-index: 1; }
+.saas-badge {
+  display: inline-flex; align-items: center; gap: 7px;
+  background: rgba(30,58,138,0.08);
+  border: 1px solid rgba(30,58,138,0.2);
+  color: #1E3A8A;
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  padding: 5px 13px; border-radius: 999px;
+  margin-bottom: 28px;
+  font-family: 'Inter', 'Source Sans 3', sans-serif;
+}
+[data-theme="dark"] .saas-badge {
+  background: rgba(147,197,253,0.08);
+  border-color: rgba(147,197,253,0.2);
+  color: #93C5FD;
+}
+.saas-badge-dot { width: 6px; height: 6px; border-radius: 50%; background: #3B82F6; flex-shrink: 0; }
+.saas-h1 {
+  font-family: 'Inter', 'Playfair Display', sans-serif;
+  font-size: 44px; font-weight: 800;
+  line-height: 1.12; letter-spacing: -0.025em;
+  color: #0F172A; margin: 0 0 24px;
+}
+[data-theme="dark"] .saas-h1 { color: #F1F5F9; }
+.saas-h1 span { color: #1E3A8A; }
+[data-theme="dark"] .saas-h1 span { color: #93C5FD; }
+.saas-sub {
+  font-size: 16px; line-height: 1.8; color: #64748B;
+  margin: 0 0 40px; max-width: 440px;
+  font-family: 'Inter', 'Source Sans 3', sans-serif;
+}
+[data-theme="dark"] .saas-sub { color: #94A3B8; }
+.saas-sub strong { color: #0F172A; font-weight: 600; }
+[data-theme="dark"] .saas-sub strong { color: #E2E8F0; }
+.saas-btns { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; margin-bottom: 48px; }
+.saas-btn-primary {
+  background: #1E3A8A; color: #fff; border: none;
+  padding: 13px 28px; border-radius: 10px;
+  font-size: 14px; font-weight: 700;
+  font-family: 'Inter', 'Source Sans 3', sans-serif;
+  cursor: pointer; display: flex; align-items: center; gap: 8px;
+  transition: background 0.2s, transform 0.15s;
+}
+.saas-btn-primary:hover { background: #1e40af; transform: translateY(-2px); }
+.saas-btn-secondary {
+  background: transparent; color: #1E3A8A;
+  border: 1.5px solid rgba(30,58,138,0.3);
+  padding: 12px 26px; border-radius: 10px;
+  font-size: 14px; font-weight: 700;
+  font-family: 'Inter', 'Source Sans 3', sans-serif;
+  cursor: pointer; transition: all 0.2s;
+}
+.saas-btn-secondary:hover { border-color: #1E3A8A; background: rgba(30,58,138,0.06); transform: translateY(-2px); }
+[data-theme="dark"] .saas-btn-secondary { color: #93C5FD; border-color: rgba(147,197,253,0.25); }
+[data-theme="dark"] .saas-btn-secondary:hover { border-color: #93C5FD; background: rgba(147,197,253,0.08); }
+.saas-stats { display: flex; gap: 28px; align-items: center; }
+.saas-stat { display: flex; flex-direction: column; gap: 2px; }
+.saas-stat-num {
+  font-size: 24px; font-weight: 800; color: #0F172A;
+  font-family: 'Inter', sans-serif; letter-spacing: -0.02em;
+}
+[data-theme="dark"] .saas-stat-num { color: #F1F5F9; }
+.saas-stat-label { font-size: 12px; color: #94A3B8; font-weight: 500; }
+.saas-stat-divider { width: 1px; height: 32px; background: rgba(148,163,184,0.3); flex-shrink: 0; }
+.saas-hero-right { flex: 0 0 420px; position: relative; z-index: 1; }
+.saas-illus-glow {
+  position: absolute;
+  width: 320px; height: 320px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(99,102,241,0.1) 0%, rgba(34,211,238,0.06) 50%, transparent 70%);
+  top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 0;
+}
+@media (max-width: 900px) {
+  .saas-hero { flex-direction: column; gap: 40px; padding: 48px 0; }
+  .saas-hero-right { flex: none; width: 100%; }
+  .saas-h1 { font-size: 30px; }
+}
+
+/* ── SAAS HERO ── */
 .subject-cards-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -758,7 +853,6 @@ body.hovering #cursor-glow { width: 80px; height: 80px; background: radial-gradi
 <aside id="sidebar">
   <div class="s-logo" onclick="goHome()" style="cursor:pointer">
     <div style="display:flex;align-items:center;gap:10px">
-      <img src="logo.png" alt="Takshashila Logo" style="width:38px;height:38px;object-fit:contain;flex-shrink:0;border-radius:6px"/>
       <div>
         <div style="font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:var(--accent);letter-spacing:0.01em">Takshashila</div>
         <div style="font-size:0.62rem;color:var(--text2);margin-top:2px;letter-spacing:0.05em;text-transform:uppercase">Government Exam Notes</div>
@@ -928,7 +1022,6 @@ body.hovering #cursor-glow { width: 80px; height: 80px; background: radial-gradi
   <div id="topbar">
     <button id="menu-btn" onclick="toggleSidebar()"><span style="display:inline-flex;align-items:center"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg></span></button>
     <span class="t-logo-inline" style="display:none;align-items:center;gap:8px">
-      <img src="logo.png" alt="Takshashila" style="width:26px;height:26px;object-fit:contain;border-radius:4px"/>
       <span style="font-family:'Playfair Display',serif;font-size:0.95rem;font-weight:700;color:var(--accent)">Takshashila</span>
     </span>
     <div class="t-crumb" id="crumb"></div>
@@ -1015,18 +1108,101 @@ body.hovering #cursor-glow { width: 80px; height: 80px; background: radial-gradi
 
     <!-- Hero -->
     <div class="home-hero">
-      <div class="hero-inner">
-        <!-- Left: text -->
-        <div class="hero-text">
-          <div style="display:flex;align-items:center;gap:16px;margin-bottom:18px">
-            <img src="logo.png" alt="Takshashila" style="width:60px;height:60px;object-fit:contain;flex-shrink:0;mix-blend-mode:lighten"/>
-            <h1 style="margin-bottom:0">Welcome to <em>Takshashila</em></h1>
+      <div class="saas-hero">
+        <div class="saas-hero-bg-glow"></div>
+        <div class="saas-hero-bg-glow2"></div>
+
+        <!-- Left -->
+        <div class="saas-hero-left">
+          <div class="saas-badge">
+            <div class="saas-badge-dot"></div>
+            Free for all aspirants
           </div>
-          <p>Named after <strong>Takshashila</strong> — the world's first university, established around 700 BCE in ancient India. Scholars from across the world came here to study medicine, philosophy, grammar, mathematics, and statecraft. This portal carries that spirit — a place to build knowledge, topic by topic, from your own sources.</p>
+          <h1 class="saas-h1">Stop Studying <span>Randomly.</span><br>Start Preparing<br>with Clarity.</h1>
+          <p class="saas-sub"><strong>Takshashila</strong> — built for aspirants who are tired of confusion and want a clear path to selection. Structured notes, focused practice, and zero distractions — everything in one place.</p>
+          <div class="saas-btns">
+            <button class="saas-btn-primary" onclick="document.querySelector('.subject-cards-grid').scrollIntoView({behavior:'smooth'})">
+              Start Preparation
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </button>
+            <button class="saas-btn-secondary" onclick="document.querySelector('.subject-cards-grid').scrollIntoView({behavior:'smooth'})">
+              Explore Subjects
+            </button>
+          </div>
+          <div class="saas-stats">
+            <div class="saas-stat">
+              <span class="saas-stat-num">28+</span>
+              <span class="saas-stat-label">Topics covered</span>
+            </div>
+            <div class="saas-stat-divider"></div>
+            <div class="saas-stat">
+              <span class="saas-stat-num">4</span>
+              <span class="saas-stat-label">Core subjects</span>
+            </div>
+            <div class="saas-stat-divider"></div>
+            <div class="saas-stat">
+              <span class="saas-stat-num">12+</span>
+              <span class="saas-stat-label">Exams covered</span>
+            </div>
+          </div>
         </div>
+
         <!-- Right: illustration -->
-        <div class="hero-illustration">
-          <img src="hero.svg" alt="Study illustration"/>
+        <div class="saas-hero-right">
+          <div class="saas-illus-glow"></div>
+          <svg width="100%" viewBox="0 0 420 440" style="position:relative;z-index:1">
+            <rect x="40" y="300" width="340" height="10" rx="4" fill="#E2E8F0"/>
+            <rect x="60" y="308" width="300" height="80" rx="4" fill="#F1F5F9"/>
+            <rect x="70" y="388" width="12" height="40" rx="3" fill="#CBD5E1"/>
+            <rect x="338" y="388" width="12" height="40" rx="3" fill="#CBD5E1"/>
+            <rect x="110" y="255" width="200" height="10" rx="4" fill="#CBD5E1"/>
+            <rect x="108" y="250" width="204" height="8" rx="3" fill="#94A3B8"/>
+            <rect x="100" y="110" width="220" height="145" rx="10" fill="#1E293B"/>
+            <rect x="106" y="116" width="208" height="133" rx="7" fill="#F8FAFC"/>
+            <rect x="106" y="116" width="208" height="22" rx="7" fill="#EFF6FF"/>
+            <circle cx="118" cy="127" r="4" fill="#FCA5A5"/>
+            <circle cx="130" cy="127" r="4" fill="#FCD34D"/>
+            <circle cx="142" cy="127" r="4" fill="#86EFAC"/>
+            <rect x="155" y="122" width="80" height="10" rx="5" fill="#DBEAFE"/>
+            <rect x="112" y="146" width="90" height="54" rx="6" fill="#fff" stroke="#E2E8F0" stroke-width="1"/>
+            <rect x="120" y="154" width="50" height="5" rx="2" fill="#1E3A8A"/>
+            <rect x="120" y="163" width="70" height="3" rx="1.5" fill="#CBD5E1"/>
+            <rect x="120" y="170" width="60" height="3" rx="1.5" fill="#CBD5E1"/>
+            <rect x="120" y="177" width="65" height="3" rx="1.5" fill="#CBD5E1"/>
+            <rect x="120" y="184" width="40" height="3" rx="1.5" fill="#CBD5E1"/>
+            <rect x="212" y="146" width="96" height="54" rx="6" fill="#fff" stroke="#E2E8F0" stroke-width="1"/>
+            <rect x="220" y="154" width="45" height="5" rx="2" fill="#1E3A8A"/>
+            <rect x="220" y="165" width="10" height="10" rx="2" fill="#DBEAFE" stroke="#93C5FD" stroke-width="1"/>
+            <path d="M222 170l2.5 2.5 4-4" stroke="#1E3A8A" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+            <rect x="235" y="167" width="40" height="3" rx="1.5" fill="#CBD5E1"/>
+            <rect x="220" y="180" width="10" height="10" rx="2" fill="#DBEAFE" stroke="#93C5FD" stroke-width="1"/>
+            <path d="M222 185l2.5 2.5 4-4" stroke="#1E3A8A" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+            <rect x="235" y="182" width="50" height="3" rx="1.5" fill="#CBD5E1"/>
+            <rect x="220" y="195" width="10" height="10" rx="2" fill="#F1F5F9" stroke="#E2E8F0" stroke-width="1"/>
+            <rect x="235" y="197" width="35" height="3" rx="1.5" fill="#E2E8F0"/>
+            <rect x="112" y="208" width="196" height="26" rx="6" fill="#fff" stroke="#E2E8F0" stroke-width="1"/>
+            <rect x="120" y="215" width="55" height="4" rx="2" fill="#CBD5E1"/>
+            <rect x="120" y="223" width="160" height="4" rx="2" fill="#E2E8F0"/>
+            <rect x="120" y="223" width="96" height="4" rx="2" fill="#1E3A8A"/>
+            <text x="285" y="227" font-family="Inter,sans-serif" font-size="7" fill="#1E3A8A" font-weight="600">60%</text>
+            <circle cx="315" cy="210" r="24" fill="#FDE68A"/>
+            <ellipse cx="315" cy="192" rx="22" ry="12" fill="#1E293B"/>
+            <rect x="293" y="192" width="9" height="20" rx="4" fill="#1E293B"/>
+            <circle cx="308" cy="212" r="2.5" fill="#92400E"/>
+            <circle cx="322" cy="212" r="2.5" fill="#92400E"/>
+            <path d="M309 220 Q315 225 321 220" stroke="#92400E" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+            <rect x="292" y="232" width="46" height="60" rx="12" fill="#1E3A8A"/>
+            <rect x="270" y="238" width="24" height="10" rx="5" fill="#1E3A8A" transform="rotate(-8,282,243)"/>
+            <rect x="336" y="238" width="24" height="10" rx="5" fill="#1E3A8A" transform="rotate(8,348,243)"/>
+            <circle cx="268" cy="250" r="7" fill="#FDE68A"/>
+            <circle cx="352" cy="250" r="7" fill="#FDE68A"/>
+            <rect x="340" y="140" width="68" height="28" rx="8" fill="#1E3A8A"/>
+            <text x="374" y="158" font-family="Inter,sans-serif" font-size="10" fill="#fff" font-weight="700" text-anchor="middle">SSC CGL</text>
+            <rect x="20" y="175" width="72" height="28" rx="8" fill="#FEF3C7" stroke="#FDE68A" stroke-width="1"/>
+            <text x="56" y="193" font-family="Inter,sans-serif" font-size="10" fill="#92400E" font-weight="700" text-anchor="middle">7-day streak</text>
+            <rect x="345" y="260" width="64" height="28" rx="8" fill="#F0FDF4" stroke="#86EFAC" stroke-width="1"/>
+            <text x="377" y="278" font-family="Inter,sans-serif" font-size="10" fill="#166534" font-weight="700" text-anchor="middle">Score 92%</text>
+          </svg>
         </div>
       </div>
     </div>
