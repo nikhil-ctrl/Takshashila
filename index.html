@@ -731,7 +731,7 @@ body {
   50%       { transform: translateY(-8px); }
 }
 .saas-hero {
-  display: flex; align-items: center; gap: 48px;
+  display: flex; align-items: center; gap: 32px;
   padding: 36px 0 72px; position: relative; overflow: hidden;
 }
 .saas-hero-bg-glow {
@@ -849,19 +849,20 @@ body {
 }
 .saas-stat-divider { width: 1px; height: 28px; background: rgba(148,163,184,0.2); flex-shrink: 0; }
 .saas-hero-right {
-  flex: 0 0 500px; position: relative; z-index: 1;
-  display: flex; align-items: flex-start; justify-content: flex-start;
-  margin-right: -20px; margin-top: -24px;
+  flex: 0 0 480px; position: relative; z-index: 1;
+  display: flex; align-items: center; justify-content: flex-start;
+  margin-right: -36px; margin-top: -40px;
   animation: heroFadeUp 0.8s 0.15s ease both;
 }
 .saas-hero-right svg {
-  width: 108%; max-width: 108%;
+  width: 115%; max-width: 115%;
   animation: illustFloat 6s ease-in-out infinite;
+  position: relative; z-index: 1;
 }
 .saas-illus-glow {
-  position: absolute; width: 260px; height: 260px; border-radius: 50%;
-  background: radial-gradient(circle, rgba(99,102,241,0.09) 0%, rgba(34,211,238,0.04) 55%, transparent 72%);
-  top: 42%; left: 45%; transform: translate(-50%, -50%); z-index: 0;
+  position: absolute; width: 220px; height: 220px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(99,102,241,0.09) 0%, rgba(34,211,238,0.04) 50%, transparent 68%);
+  top: 46%; left: 42%; transform: translate(-50%, -50%); z-index: 0;
 }
 @media (max-width: 960px) {
   .saas-hero { flex-direction: column; gap: 48px; padding: 56px 0; }
