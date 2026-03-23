@@ -388,7 +388,7 @@ body {
    HOME PAGE
 ══════════════════════════════ */
 #home {
-  padding: 52px 56px 100px;
+  padding: 24px 56px 80px;
   max-width: 100%;
   width: 100%;
   box-sizing: border-box;
@@ -435,7 +435,7 @@ body {
 @keyframes animStar { from { transform: translateY(0); } to { transform: translateY(-2000px); } }
 
 /* Hero */
-.home-hero { margin-bottom: 40px; max-width: 1200px; }
+.home-hero { margin-bottom: 32px; max-width: 100%; width: 100%; }
 .hero-inner {
   display: flex;
   align-items: center;
@@ -731,9 +731,15 @@ body {
   50%       { transform: translateY(-8px); }
 }
 .saas-hero {
-  display: flex; align-items: center; gap: 40px;
-  padding: 48px 0 64px; position: relative;
-  width: 100%; height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 48px;
+  padding: 60px 0;
+  width: 100%;
+  position: relative;
+  height: auto;
+  min-height: unset;
 }
 .saas-hero-bg-glow {
   position: absolute; width: 360px; height: 360px; border-radius: 50%;
@@ -748,7 +754,6 @@ body {
 .saas-hero-left {
   flex: 1; min-width: 0; position: relative; z-index: 1; max-width: 440px;
   animation: heroFadeUp 0.7s ease both;
-  align-self: center;
 }
 .saas-badge {
   display: inline-flex; align-items: center; gap: 7px;
@@ -853,7 +858,6 @@ body {
 .saas-hero-right {
   flex: 0 0 460px; position: relative; z-index: 1;
   display: flex; align-items: center; justify-content: center;
-  align-self: center;
   animation: heroFadeUp 0.8s 0.15s ease both;
 }
 .saas-hero-right svg {
