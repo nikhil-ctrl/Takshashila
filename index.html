@@ -874,14 +874,6 @@ body {
   background: radial-gradient(circle, rgba(99,102,241,0.09) 0%, rgba(34,211,238,0.04) 50%, transparent 68%);
   top: 50%; left: 44%; transform: translate(-50%, -50%); z-index: 0;
 }
-@media (max-width: 960px) {
-  .saas-hero { flex-direction: column; gap: 40px; padding: 48px 0 56px; max-width: 100%; }
-  .saas-hero-left { flex: none; max-width: 100%; }
-  .saas-hero-right { flex: none; width: 100%; }
-  .saas-hero-right svg { width: 86%; max-width: 100%; margin: 0 auto; }
-  .saas-h1 { font-size: 32px; max-width: 100%; }
-}
-
 /* ── SAAS HERO ── */
 .subject-cards-grid {
   display: grid;
@@ -986,25 +978,99 @@ body {
 @keyframes fadeUp { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
 
 /* ── RESPONSIVE ── */
-@media (max-width: 1100px) {
-  .subject-cards-grid { grid-template-columns: repeat(2, 1fr); }
+
+/* Tablet: 1024px */
+@media (max-width: 1024px) {
+  .subject-cards-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .saas-hero { gap: 32px; padding: 48px 0 56px; }
+  .saas-h1 { font-size: 38px; }
 }
+
+/* Tablet narrow / large mobile: 768px */
 @media (max-width: 768px) {
+  /* Sidebar */
   body { cursor: auto; }
-  #cursor,   #sidebar { transform: translateX(-100%); }
+  #sidebar { transform: translateX(-100%); }
   #sidebar.open { transform: translateX(0); }
   #main { margin-left: 0 !important; }
   #menu-btn { display: flex !important; }
   .t-logo-inline { display: flex !important; }
+  .t-streak { display: none; }
+
+  /* Navbar */
   .t-nav { display: none; }
+  #topbar { padding: 0 16px; height: 56px; gap: 8px; }
+
+  /* Home padding */
+  #home { padding: 20px 20px 48px; }
   #article { padding: 24px 20px 60px; }
-  #home { padding: 28px 20px 60px; }
+
+  /* Hero — stack vertically */
+  .saas-hero {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 28px;
+    padding: 32px 0 40px;
+    max-width: 100%;
+  }
+  .saas-hero-left {
+    flex: none;
+    max-width: 100%;
+    width: 100%;
+  }
+  .saas-hero-right {
+    flex: none;
+    width: 100%;
+    padding-left: 0;
+    margin-top: 0;
+    justify-content: center;
+  }
+  .saas-hero-right svg {
+    width: 88%;
+    max-width: 420px;
+    margin: 0 auto;
+    display: block;
+  }
+
+  /* Hero typography */
+  .saas-h1 { font-size: 28px; max-width: 100%; line-height: 1.2; }
+  .saas-sub { font-size: 14px; max-width: 100%; }
+  .saas-badge { font-size: 10px; margin-bottom: 20px; }
+
+  /* Buttons — full width stacked */
+  .saas-btns {
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    margin-bottom: 16px;
+  }
+  .saas-btn-primary, .saas-btn-secondary {
+    width: 100%;
+    justify-content: center;
+  }
+  .saas-trust { margin-bottom: 32px; }
+
+  /* Stats — reduce gap */
+  .saas-stats { gap: 20px; }
+  .saas-stat-num { font-size: 18px; }
+
+  /* Cards — 2 column */
+  .subject-cards-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .subj-card-new { padding: 20px 16px; }
+
+  /* Misc */
   .kv-grid { grid-template-columns: 1fr; }
   .mcq-opts { grid-template-columns: 1fr; }
   .home-hero h1 { font-size: 1.8rem; }
-  .hero-inner { flex-direction: column; gap: 28px; }
-  .hero-illustration { width: 100%; }
-  .subject-cards-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* Small mobile: 480px */
+@media (max-width: 480px) {
+  .subject-cards-grid { grid-template-columns: 1fr; }
+  .saas-h1 { font-size: 26px; }
+  .saas-hero-right svg { width: 100%; }
+  #home { padding: 16px 16px 40px; }
+  .subj-card-new { padding: 18px 14px; }
 }
 </style>
 </head>
