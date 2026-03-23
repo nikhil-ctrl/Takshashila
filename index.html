@@ -175,6 +175,7 @@ body {
   height: 68px; padding: 0 32px;
   display: flex; align-items: center; gap: 10px;
   transition: background 0.3s;
+  overflow: visible;
 }
 [data-theme="dark"] #topbar {
   background: rgba(18,14,24,0.78);
@@ -268,28 +269,29 @@ body {
 .t-streak-tooltip {
   display: none;
   position: absolute;
-  bottom: calc(100% + 10px);
+  top: calc(100% + 8px);
   left: 50%; transform: translateX(-50%);
   background: #0F172A;
-  color: #F8FAFC;
-  font-size: 12px; font-weight: 500;
-  padding: 6px 12px; border-radius: 7px;
+  color: #E2E8F0;
+  font-size: 11.5px; font-weight: 400;
+  padding: 7px 13px; border-radius: 8px;
   white-space: nowrap;
   font-family: 'Inter', 'Source Sans 3', sans-serif;
-  letter-spacing: 0.01em;
-  z-index: 300;
+  letter-spacing: 0.01em; line-height: 1.5;
+  z-index: 1000;
   pointer-events: none;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15), 0 1px 3px rgba(0,0,0,0.1);
 }
 .t-streak-tooltip::after {
   content: '';
   position: absolute;
-  top: 100%; left: 50%; transform: translateX(-50%);
+  bottom: 100%; left: 50%; transform: translateX(-50%);
   border: 5px solid transparent;
-  border-top-color: #0F172A;
+  border-bottom-color: #0F172A;
 }
 .t-streak:hover .t-streak-tooltip { display: block; }
 [data-theme="dark"] .t-streak-tooltip { background: #1E293B; }
-[data-theme="dark"] .t-streak-tooltip::after { border-top-color: #1E293B; }
+[data-theme="dark"] .t-streak-tooltip::after { border-bottom-color: #1E293B; border-top-color: transparent; }
 
 /* ── STREAK INDICATOR ── */
 .t-soon {
@@ -798,9 +800,9 @@ body {
   animation: heroFadeUp 0.7s 0.2s ease both;
 }
 .saas-trust {
-  font-size: 12px; color: #94A3B8; margin-bottom: 52px;
+  font-size: 12.5px; color: #94A3B8; margin-bottom: 52px;
   font-family: 'Inter', 'Source Sans 3', sans-serif;
-  letter-spacing: 0.01em;
+  letter-spacing: 0.01em; line-height: 1.5;
   animation: heroFadeUp 0.7s 0.22s ease both;
 }
 [data-theme="dark"] .saas-trust { color: #64748B; }
@@ -1238,7 +1240,7 @@ body {
     <div class="t-streak" id="streakIndicator">
       <span class="t-streak-fire">🔥</span>
       <span class="t-streak-num">7</span>
-      <div class="t-streak-tooltip">7 day streak — keep it going!</div>
+      <div class="t-streak-tooltip">Study at least 15 minutes daily to keep your streak alive.</div>
     </div>
 
     <label class="switch" title="Toggle theme">
@@ -1295,7 +1297,7 @@ body {
               Explore Subjects
             </button>
           </div>
-          <p class="saas-trust">Trusted by 1,000+ aspirants across India</p>
+          <p class="saas-trust">🔥 Maintain your streak — study 15 minutes daily</p>
           <div class="saas-stats">
             <div class="saas-stat">
               <span class="saas-stat-num">28+</span>
